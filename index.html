@@ -16,8 +16,7 @@
     <nav class="p-8 flex justify-between items-center max-w-6xl mx-auto">
         <h1 class="text-3xl tracking-widest uppercase">Sophia Bateman</h1>
         <div class="space-x-6 text-sm uppercase tracking-tighter text-gray-500">
-            <a href="#" class="hover:text-black">Gallery</a>
-            <a href="mailto:email@example.com" class="hover:text-black">Contact</a>
+            <a href="#contact" class="hover:text-black">Contact</a>
         </div>
     </nav>
 
@@ -55,7 +54,37 @@
             
         </div>
     </main>
+<section id="contact" class="max-w-3xl mx-auto p-12 bg-white mt-20 shadow-sm border border-gray-50">
+    <div class="text-center mb-10">
+        <h2 class="text-3xl font-light uppercase tracking-widest mb-2">Get in Touch</h2>
+        <p class="text-gray-400 italic">For inquiries, commissions, or collaborations.</p>
+    </div>
 
+    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY">
+        
+        <div>
+            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
+            <input type="text" name="name" required class="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-black transition-colors bg-transparent">
+        </div>
+
+        <div>
+            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Email</label>
+            <input type="email" name="email" required class="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-black transition-colors bg-transparent">
+        </div>
+
+        <div>
+            <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Message</label>
+            <textarea name="message" rows="4" required class="w-full border-b border-gray-300 p-2 focus:outline-none focus:border-black transition-colors bg-transparent"></textarea>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="mt-4 px-10 py-3 border border-black text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                Send Message
+            </button>
+        </div>
+    </form>
+</section>
     <footer class="py-20 text-center text-gray-400 text-sm border-t border-gray-100">
         <p>&copy; 2026 Artist Name. All Rights Reserved.</p>
     </footer>
