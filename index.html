@@ -9,27 +9,29 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
         h1, h2, h3 { font-family: 'Bodoni+Moda', serif; }
-        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; overflow-x: hidden; }
         
-        /* Dropdown Bridge */
         .dropdown:hover .dropdown-menu { display: block; }
-
-        /* Smooth fade for Back to Top button */
         #backToTop.hidden-btn { opacity: 0; pointer-events: none; }
         #backToTop.visible-btn { opacity: 1; pointer-events: auto; }
+
+        /* Mobile Menu Transition */
+        #mobileMenu { transition: transform 0.3s ease-in-out; }
+        .menu-open { transform: translateX(0); }
+        .menu-closed { transform: translateX(100%); }
     </style>
 </head>
 <body class="text-gray-900 relative">
 
-    <nav id="top" class="p-8 flex justify-between items-center max-w-6xl mx-auto relative">
-        <h1 class="text-3xl tracking-widest uppercase">Sophia Bateman</h1>
+    <nav id="top" class="p-6 md:p-8 flex justify-between items-center max-w-6xl mx-auto relative z-40">
+        <h1 class="text-2xl md:text-3xl tracking-widest uppercase">Sophia Bateman</h1>
         
-        <div class="flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
             <div class="relative dropdown py-2">
-                <button class="flex items-center hover:text-black transition-colors uppercase tracking-tighter outline-none">
+                <button class="flex items-center hover:text-black transition-colors uppercase outline-none">
                     Collections <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
                 </button>
-                <div class="dropdown-menu absolute hidden bg-white shadow-xl border border-gray-100 py-4 px-6 z-50 w-48 left-0 top-full mt-0">
+                <div class="dropdown-menu absolute hidden bg-white shadow-xl border border-gray-100 py-4 px-6 z-50 w-48 left-0 top-full">
                     <ul class="space-y-3">
                         <li><a href="#botanicals" class="hover:text-black block transition-colors">Botanicals</a></li>
                         <li><a href="#pop-culture" class="hover:text-black block transition-colors">Pop Culture</a></li>
@@ -41,75 +43,64 @@
             <a href="about.html" class="hover:text-black transition-colors">About</a>
             <a href="contact.html" class="hover:text-black transition-colors">Contact</a>
         </div>
+
+        <button id="menuBtn" class="md:hidden text-gray-500 hover:text-black transition-colors">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
     </nav>
 
-    <header class="text-center py-20 border-b border-gray-100">
+    <div id="mobileMenu" class="fixed top-0 right-0 h-full w-64 bg-white shadow-2xl z-50 p-8 menu-closed md:hidden">
+        <div class="flex justify-end mb-8">
+            <button id="closeBtn" class="text-gray-500 hover:text-black">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <ul class="flex flex-col space-y-6 text-sm uppercase tracking-widest text-gray-500">
+            <li><a href="index.html" class="hover:text-black">Gallery</a></li>
+            <li><a href="about.html" class="hover:text-black">About</a></li>
+            <li><a href="contact.html" class="hover:text-black">Contact</a></li>
+            <li class="pt-6 border-t border-gray-100 italic lowercase text-gray-400">Collections</li>
+            <li><a href="#botanicals" class="mobile-link text-xs hover:text-black">Botanicals</a></li>
+            <li><a href="#pop-culture" class="mobile-link text-xs hover:text-black">Pop Culture</a></li>
+        </ul>
+    </div>
+
+    <header class="text-center py-12 md:py-20 border-b border-gray-100">
         <p class="italic text-gray-400 mb-2 font-light">Acrylic & Watercolor</p>
-        <h2 class="text-5xl font-light mb-4 text-slate-800">Modern Art</h2>
+        <h2 class="text-4xl md:text-5xl font-light mb-4 text-slate-800">Modern Art</h2>
     </header>
 
-    <section class="max-w-4xl mx-auto px-8 py-16 text-center">
-        <div class="mb-8 flex justify-center">
-            <div class="w-32 h-32 rounded-full overflow-hidden bg-gray-100 border border-gray-100 shadow-sm">
+    <section class="max-w-4xl mx-auto px-8 py-12 text-center">
+        <div class="mb-6 flex justify-center">
+            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-100 border border-gray-100 shadow-sm">
                 <img src="sophia-profile.jpg" alt="Sophia Bateman" class="w-full h-full object-cover">
             </div>
         </div>
-        <h3 class="text-2xl font-light italic mb-4">Capturing fluid beauty.</h3>
-        <p class="text-gray-500 max-w-xl mx-auto mb-6 font-light leading-relaxed text-sm">
-            Based in the UK, Sophia specializes in mixed media works that explore the intersection of light and water.
-        </p>
-        <a href="about.html" class="text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-gray-400 transition-all">
-            Read her full story
-        </a>
+        <h3 class="text-xl md:text-2xl font-light italic mb-4">Capturing fluid beauty.</h3>
+        <a href="about.html" class="text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-gray-400">Read the full story</a>
     </section>
 
-    <main class="max-w-6xl mx-auto p-6 lg:p-12">
+    <main class="max-w-6xl mx-auto p-6">
         <div id="botanicals" class="mb-24 scroll-mt-24">
-            <h2 class="text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Botanicals</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Botanicals</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
                 <div class="group cursor-pointer">
                     <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Magnolia.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Magnolia">
+                        <img src="Magnolia.JPG" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Magnolia">
                     </div>
                     <h3 class="mt-4 text-lg font-light italic">Magnolia</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Mixed Media Acrylic • 12x24</p>
-                </div>
-            </div>
-        </div>
-
-        <div id="pop-culture" class="mb-24 scroll-mt-24">
-            <h2 class="text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Pop Culture</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="hulk.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Hulk">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Hulk</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media Acrylic • 12x24</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="mando.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Mando">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Mando</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media Acrylic • 12x24</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Acrylic • 12x24</p>
                 </div>
                 </div>
         </div>
+    </main>
 
-        </main>
-
-    <button id="backToTop" class="fixed bottom-8 right-8 z-50 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-all duration-300 hidden-btn">
+    <button id="backToTop" class="fixed bottom-6 right-6 z-40 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-all duration-300 hidden-btn">
         <i data-lucide="chevron-up" class="w-5 h-5"></i>
     </button>
 
-    <footer class="py-20 text-center border-t border-gray-100 mt-20">
-        <div class="flex justify-center space-x-6 mb-8">
-            <a href="https://www.instagram.com/bateman_art" target="_blank" class="text-gray-400 hover:text-black transition-colors">
-                <i data-lucide="instagram" class="w-6 h-6"></i>
-            </a>
-        </div>
-        <p class="text-gray-400 text-xs uppercase tracking-widest leading-loose">
+    <footer class="py-16 text-center border-t border-gray-100 mt-10">
+        <p class="text-gray-400 text-[10px] uppercase tracking-widest leading-loose">
             &copy; 2026 Sophia Bateman<br>All Rights Reserved.
         </p>
     </footer>
@@ -117,22 +108,35 @@
     <script>
         lucide.createIcons();
 
-        // Back to Top Logic
-        const backToTopBtn = document.getElementById('backToTop');
-        
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTopBtn.classList.remove('hidden-btn');
-                backToTopBtn.classList.add('visible-btn');
-            } else {
-                backToTopBtn.classList.remove('visible-btn');
-                backToTopBtn.classList.add('hidden-btn');
-            }
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('menu-closed');
+            mobileMenu.classList.add('menu-open');
         });
 
-        backToTopBtn.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        const closeMenu = () => {
+            mobileMenu.classList.remove('menu-open');
+            mobileMenu.classList.add('menu-closed');
+        };
+
+        closeBtn.addEventListener('click', closeMenu);
+        mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.replace('hidden-btn', 'visible-btn');
+            } else {
+                backToTopBtn.classList.replace('visible-btn', 'hidden-btn');
+            }
         });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     </script>
 </body>
 </html>
