@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Artist Portfolio</title>
+    <title>Artist Portfolio | Sophia Bateman</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
         h1 { font-family: 'Bodoni+Moda', serif; }
@@ -37,7 +38,7 @@
             </div>
 
             <div class="group cursor-pointer">
-                <div class="overflow-hidden bg-gray-100 aspect-[4/5]">
+                <div class="overflow-hidden bg-gray-100">
                     <img src="Marbles.jpg" class="w-full h-auto block">
                 </div>
                 <h3 class="mt-4 text-lg font-light italic">Marbles</h3>
@@ -54,6 +55,7 @@
             
         </div>
     </main>
+
 <section id="contact" class="max-w-3xl mx-auto p-12 bg-white mt-20 shadow-sm border border-gray-50">
     <div class="text-center mb-10">
         <h2 class="text-3xl font-light uppercase tracking-widest mb-2">Get in Touch</h2>
@@ -62,6 +64,8 @@
 
     <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
         <input type="hidden" name="access_key" value="7e12b851-fa1b-4873-b2b3-8cd5137ab12c">
+        
+        <input type="hidden" name="redirect" value="https://gdunning78.github.io/my-art-portfolio/success.html">
         
         <div>
             <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
@@ -85,9 +89,21 @@
         </div>
     </form>
 </section>
-    <footer class="py-20 text-center text-gray-400 text-sm border-t border-gray-100">
-        <p>&copy; 2026 Artist Name. All Rights Reserved.</p>
+
+    <footer class="py-20 text-center border-t border-gray-100">
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="#" target="_blank" class="text-gray-400 hover:text-black transition-colors">
+                <i data-lucide="instagram" class="w-6 h-6"></i>
+            </a>
+        </div>
+        <p class="text-gray-400 text-xs uppercase tracking-widest leading-loose">
+            &copy; 2026 Sophia Bateman<br>All Rights Reserved.
+        </p>
     </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
 
 </body>
 </html>
