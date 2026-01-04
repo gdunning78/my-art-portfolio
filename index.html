@@ -18,9 +18,20 @@
         #mobileMenu { transition: transform 0.3s ease-in-out; }
         .menu-open { transform: translateX(0); }
         .menu-closed { transform: translateX(100%); }
+
+        /* Lightbox specific style */
+        #lightbox { transition: opacity 0.3s ease; }
     </style>
 </head>
 <body class="text-gray-900 relative">
+
+    <div id="lightbox" class="fixed inset-0 z-[100] bg-white/95 backdrop-blur-sm hidden flex-col items-center justify-center p-4 cursor-zoom-out">
+        <button class="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <img id="lightbox-img" src="" class="max-w-full max-h-[80vh] shadow-2xl object-contain">
+        <p id="lightbox-caption" class="mt-6 text-sm uppercase tracking-widest font-light text-gray-500 text-center"></p>
+    </div>
 
     <nav id="top" class="p-6 md:p-8 flex justify-between items-center max-w-6xl mx-auto relative z-40">
         <h1 class="text-2xl md:text-3xl tracking-widest uppercase">Sophia Bateman</h1>
@@ -74,7 +85,7 @@
         <div id="botanicals" class="mb-24 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Botanicals</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Magnolia.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Magnolia"></div>
                     <h3 class="mt-4 text-lg font-light italic">Magnolia</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Mixed Media Acrylic • 12x24</p>
@@ -85,27 +96,27 @@
         <div id="pop-culture" class="mb-24 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Pop Culture</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="hulk.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Hulk"></div>
                     <h3 class="mt-4 text-lg font-light italic">Hulk</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="mando.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Mando"></div>
                     <h3 class="mt-4 text-lg font-light italic">Mando</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="carter.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Vince Carter"></div>
                     <h3 class="mt-4 text-lg font-light italic">Vince Carter</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="kobe.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Kobe Bryant"></div>
                     <h3 class="mt-4 text-lg font-light italic">Kobe Bryant</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="dryden.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Ken Dryden"></div>
                     <h3 class="mt-4 text-lg font-light italic">Ken Dryden</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
@@ -116,22 +127,22 @@
         <div id="lifestyle" class="mb-24 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Lifestyle</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Nike Shoe.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Nike Shoe"></div>
                     <h3 class="mt-4 text-lg font-light italic">Nike Shoe</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Ferrari.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Ferrari"></div>
                     <h3 class="mt-4 text-lg font-light italic">Ferrari</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="low ball.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Low Ball"></div>
                     <h3 class="mt-4 text-lg font-light italic">Low Ball</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="mixing glass.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Mixing Glass"></div>
                     <h3 class="mt-4 text-lg font-light italic">Mixing Glass</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
@@ -142,17 +153,17 @@
         <div id="abstracts" class="mb-24 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Abstracts</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Darwin.jpg" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Darwin"></div>
                     <h3 class="mt-4 text-lg font-light italic">Darwin</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Marbles.jpg" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Marbles"></div>
                     <h3 class="mt-4 text-lg font-light italic">Marbles</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
                 </div>
-                <div class="group cursor-pointer">
+                <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Water.jpg" loading="lazy" class="w-full h-auto transform transition-transform duration-500 group-hover:scale-105" alt="Water"></div>
                     <h3 class="mt-4 text-lg font-light italic">Water</h3> 
                     <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
@@ -198,6 +209,32 @@
 
         closeBtn.addEventListener('click', closeMenu);
         mobileLinks.forEach(link => link.addEventListener('click', closeMenu));
+
+        // Lightbox Logic
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxCaption = document.getElementById('lightbox-caption');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const img = item.querySelector('img');
+                const title = item.querySelector('h3').innerText;
+                const details = item.querySelector('p').innerText;
+                
+                lightboxImg.src = img.src;
+                lightboxCaption.innerText = `${title} — ${details}`;
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                document.body.style.overflow = 'hidden'; 
+            });
+        });
+
+        lightbox.addEventListener('click', () => {
+            lightbox.classList.add('hidden');
+            lightbox.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        });
 
         // Back to Top Logic
         const backToTopBtn = document.getElementById('backToTop');
