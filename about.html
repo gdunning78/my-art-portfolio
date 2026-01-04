@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About the Artist | Sophia Bateman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
+        h1, h2 { font-family: 'Bodoni+Moda', serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <nav class="p-8 flex justify-between items-center max-w-6xl mx-auto w-full">
+        <a href="index.html" class="text-3xl tracking-widest uppercase hover:opacity-70 transition-opacity">
+            <h1>Sophia Bateman</h1>
+        </a>
+        <div class="space-x-6 text-sm uppercase tracking-tighter text-gray-500">
+            <a href="index.html" class="hover:text-black transition-colors">Gallery</a>
+            <a href="contact.html" class="hover:text-black transition-colors">Contact</a>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto px-8 py-12 lg:py-24">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            
+            <div class="aspect-[4/5] bg-gray-100 overflow-hidden shadow-sm">
+                <img src="sophia-full-profile.jpg" alt="Sophia Bateman in her studio" class="w-full h-full object-cover">
+            </div>
+
+            <div class="space-y-8">
+                <h2 class="text-5xl font-light">The Story Behind the Brush</h2>
+                
+                <div class="text-gray-600 font-light leading-loose space-y-6">
+                    <p>
+                        Sophia’s journey into the world of contemporary art began with a fascination for how light moves through watercolor. Her work often bridges the gap between structured acrylic layers and the unpredictable flow of water-based media.
+                    </p>
+                    <p>
+                        "I believe every canvas tells a story of a single moment in time—whether it's the ripple in a lake or the way a shadow falls across a face. My goal is to invite the viewer to pause and find peace in those details."
+                    </p>
+                    <p>
+                        When she isn't in her studio, Sophia finds inspiration in the rugged landscapes of [Your Region], which often serve as the raw foundation for her abstract collections.
+                    </p>
+                </div>
+
+                <div class="pt-6">
+                    <a href="contact.html" class="px-10 py-4 border border-black text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-all">
+                        Inquire About a Commission
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="py-20 text-center border-t border-gray-100 mt-20">
+        <div class="flex justify-center space-x-6 mb-8">
+            <a href="https://www.instagram.com/bateman_art" target="_blank" class="text-gray-400 hover:text-black transition-colors">
+                <i data-lucide="instagram" class="w-6 h-6"></i>
+            </a>
+        </div>
+        <p class="text-gray-400 text-xs uppercase tracking-widest leading-loose">
+            &copy; 2026 Sophia Bateman<br>All Rights Reserved.
+        </p>
+    </footer>
+
+    <script>
+      lucide.createIcons();
+    </script>
+</body>
+</html>
