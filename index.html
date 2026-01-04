@@ -11,19 +11,22 @@
         h1, h2, h3 { font-family: 'Bodoni+Moda', serif; }
         body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; }
         
-        /* Fixed Dropdown: Added a 'bridge' so it doesn't disappear */
-        .dropdown:hover .dropdown-menu { 
-            display: block; 
-        }
+        /* Dropdown Bridge */
+        .dropdown:hover .dropdown-menu { display: block; }
+
+        /* Smooth fade for Back to Top button */
+        #backToTop.hidden-btn { opacity: 0; pointer-events: none; }
+        #backToTop.visible-btn { opacity: 1; pointer-events: auto; }
     </style>
 </head>
-<body class="text-gray-900">
+<body class="text-gray-900 relative">
 
-    <nav class="p-8 flex justify-between items-center max-w-6xl mx-auto relative">
+    <nav id="top" class="p-8 flex justify-between items-center max-w-6xl mx-auto relative">
         <h1 class="text-3xl tracking-widest uppercase">Sophia Bateman</h1>
         
         <div class="flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
-            <div class="relative dropdown py-2"> <button class="flex items-center hover:text-black transition-colors uppercase tracking-tighter outline-none">
+            <div class="relative dropdown py-2">
+                <button class="flex items-center hover:text-black transition-colors uppercase tracking-tighter outline-none">
                     Collections <i data-lucide="chevron-down" class="w-4 h-4 ml-1"></i>
                 </button>
                 <div class="dropdown-menu absolute hidden bg-white shadow-xl border border-gray-100 py-4 px-6 z-50 w-48 left-0 top-full mt-0">
@@ -35,7 +38,6 @@
                     </ul>
                 </div>
             </div>
-
             <a href="about.html" class="hover:text-black transition-colors">About</a>
             <a href="contact.html" class="hover:text-black transition-colors">Contact</a>
         </div>
@@ -43,7 +45,7 @@
 
     <header class="text-center py-20 border-b border-gray-100">
         <p class="italic text-gray-400 mb-2 font-light">Acrylic & Watercolor</p>
-        <h2 class="text-5xl font-light mb-4">Modern Art</h2>
+        <h2 class="text-5xl font-light mb-4 text-slate-800">Modern Art</h2>
     </header>
 
     <section class="max-w-4xl mx-auto px-8 py-16 text-center">
@@ -52,7 +54,7 @@
                 <img src="sophia-profile.jpg" alt="Sophia Bateman" class="w-full h-full object-cover">
             </div>
         </div>
-        <h3 class="text-2xl font-light italic mb-4 text-slate-800">Capturing fluid beauty.</h3>
+        <h3 class="text-2xl font-light italic mb-4">Capturing fluid beauty.</h3>
         <p class="text-gray-500 max-w-xl mx-auto mb-6 font-light leading-relaxed text-sm">
             Based in the UK, Sophia specializes in mixed media works that explore the intersection of light and water.
         </p>
@@ -62,7 +64,6 @@
     </section>
 
     <main class="max-w-6xl mx-auto p-6 lg:p-12">
-        
         <div id="botanicals" class="mb-24 scroll-mt-24">
             <h2 class="text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Botanicals</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -84,101 +85,23 @@
                         <img src="hulk.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Hulk">
                     </div>
                     <h3 class="mt-4 text-lg font-light italic">Hulk</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media Acrylic • 12x24</p>
                 </div>
                 <div class="group cursor-pointer">
                     <div class="overflow-hidden bg-gray-100 shadow-sm">
                         <img src="mando.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Mando">
                     </div>
                     <h3 class="mt-4 text-lg font-light italic">Mando</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="carter.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Vince Carter">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Vince Carter</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
                 </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="kobe.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Kobe Bryant">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Kobe Bryant</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="dryden.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Ken Dryden">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Ken Dryden</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-            </div>
         </div>
 
-        <div id="lifestyle" class="mb-24 scroll-mt-24">
-            <h2 class="text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Lifestyle</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Nike Shoe.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Nike Shoe">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Nike Shoe</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Ferrari.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Ferrari">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Ferrari</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="low ball.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Low Ball">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Low Ball</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="mixing glass.JPG" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Mixing Glass">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Mixing Glass</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Acrylic • 12x24</p>
-                </div>
-            </div>
-        </div>
+        </main>
 
-        <div id="abstracts" class="mb-24 scroll-mt-24">
-            <h2 class="text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Abstracts</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Darwin.jpg" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Darwin">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Darwin</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Marbles.jpg" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Marbles">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Marbles</h3>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
-                </div>
-                <div class="group cursor-pointer">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Water.jpg" class="w-full h-auto block transform transition-transform duration-500 group-hover:scale-105" alt="Water">
-                    </div>
-                    <h3 class="mt-4 text-lg font-light italic">Water</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest">Mixed Media</p>
-                </div>
-            </div>
-        </div>
-
-    </main>
+    <button id="backToTop" class="fixed bottom-8 right-8 z-50 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-all duration-300 hidden-btn">
+        <i data-lucide="chevron-up" class="w-5 h-5"></i>
+    </button>
 
     <footer class="py-20 text-center border-t border-gray-100 mt-20">
         <div class="flex justify-center space-x-6 mb-8">
@@ -192,8 +115,24 @@
     </footer>
 
     <script>
-      lucide.createIcons();
-    </script>
+        lucide.createIcons();
 
+        // Back to Top Logic
+        const backToTopBtn = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('hidden-btn');
+                backToTopBtn.classList.add('visible-btn');
+            } else {
+                backToTopBtn.classList.remove('visible-btn');
+                backToTopBtn.classList.add('hidden-btn');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
