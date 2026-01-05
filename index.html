@@ -8,7 +8,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
-        h1, h2, h3 { font-family: 'Bodoni+Moda', serif; }
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; }
         body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; overflow-x: hidden; cursor: none; }
         
         .dropdown:hover .dropdown-menu { display: block; }
@@ -21,11 +21,18 @@
 
         #lightbox { transition: opacity 0.3s ease; }
 
-        /* Custom Cursor Styles */
+        /* Custom Cursor */
         #cursor { width: 8px; height: 8px; background: black; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease, background 0.3s ease; transform: translate(-50%, -50%); }
         .cursor-hover #cursor { transform: translate(-50%, -50%) scale(5); background: rgba(0,0,0,0.05); border: 0.5px solid rgba(0,0,0,0.2); }
 
-        /* Asymmetrical Grid Utility */
+        /* Vertical Text Logic */
+        .vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            white-space: nowrap;
+        }
+
         @media (min-width: 768px) {
             .asym-offset { transform: translateY(60px); }
             .asym-offset-large { transform: translateY(120px); }
@@ -116,58 +123,75 @@
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto p-6 lg:p-12">
+    <main class="max-w-[1400px] mx-auto p-6 lg:p-24">
         
-        <div id="botanicals" class="mb-32 scroll-mt-24 relative">
-            <div class="hidden lg:block absolute -left-16 top-0 origin-top-left -rotate-90 text-gray-200 text-xs tracking-[0.5em] uppercase pointer-events-none">
-                Botanicals — Series 01
+        <div id="botanicals" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
+            <div class="hidden lg:block w-16">
+                <div class="sticky top-40"><h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Botanicals</h2></div>
             </div>
-            <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300 lg:hidden">Botanicals</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-                <div class="group cursor-zoom-in gallery-item">
-                    <div class="overflow-hidden bg-gray-100 shadow-sm">
-                        <img src="Magnolia.JPG" loading="lazy" class="w-full h-auto transform transition-transform duration-700 group-hover:scale-105" alt="Magnolia">
+            <div class="flex-1">
+                <h2 class="text-2xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300 lg:hidden">Botanicals</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div class="group cursor-zoom-in gallery-item">
+                        <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Magnolia.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Magnolia"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Magnolia</h3> 
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Mixed Media Acrylic • 12x24</p>
                     </div>
-                    <h3 class="mt-4 text-lg font-light italic">Magnolia</h3> 
-                    <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Mixed Media Acrylic • 12x24</p>
                 </div>
             </div>
         </div>
 
-        <div id="pop-culture" class="mb-56 scroll-mt-24 relative">
-            <div class="hidden lg:block absolute -left-16 top-0 origin-top-left -rotate-90 text-gray-200 text-xs tracking-[0.5em] uppercase pointer-events-none">
-                Pop Culture — Icons
+        <div id="pop-culture" class="mb-56 scroll-mt-24 flex flex-col lg:flex-row gap-16">
+            <div class="hidden lg:block w-16">
+                <div class="sticky top-40"><h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Pop Culture</h2></div>
             </div>
-            <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-16 tracking-wide uppercase text-gray-300 lg:hidden">Pop Culture</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-x-12">
-                <div class="md:col-span-7 group cursor-zoom-in gallery-item">
-                    <div class="overflow-hidden bg-gray-100"><img src="hulk.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Hulk"></div>
-                    <h3 class="mt-4 text-xl font-light italic">Hulk</h3>
-                </div>
-                
-                <div class="md:col-span-4 md:col-start-9 asym-offset group cursor-zoom-in gallery-item">
-                    <div class="overflow-hidden bg-gray-100"><img src="mando.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Mando"></div>
-                    <h3 class="mt-4 text-lg font-light italic">Mando</h3>
-                </div>
-
-                <div class="md:col-span-5 md:col-start-2 group cursor-zoom-in gallery-item">
-                    <div class="overflow-hidden bg-gray-100"><img src="carter.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Vince Carter"></div>
-                    <h3 class="mt-4 text-lg font-light italic">Vince Carter</h3>
-                </div>
-
-                <div class="md:col-span-5 group cursor-zoom-in gallery-item asym-offset-large">
-                    <div class="overflow-hidden bg-gray-100"><img src="kobe.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Kobe Bryant"></div>
-                    <h3 class="mt-4 text-lg font-light italic">Kobe Bryant</h3>
+            <div class="flex-1">
+                <h2 class="text-2xl font-light border-b border-gray-100 pb-4 mb-16 tracking-wide uppercase text-gray-300 lg:hidden">Pop Culture</h2>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-x-12">
+                    <div class="md:col-span-7 group cursor-zoom-in gallery-item">
+                        <div class="overflow-hidden bg-gray-100"><img src="hulk.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Hulk"></div>
+                        <h3 class="mt-4 text-xl font-light italic">Hulk</h3>
+                    </div>
+                    <div class="md:col-span-4 md:col-start-9 asym-offset group cursor-zoom-in gallery-item">
+                        <div class="overflow-hidden bg-gray-100"><img src="mando.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Mando"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Mando</h3>
+                    </div>
+                    <div class="md:col-span-5 md:col-start-2 group cursor-zoom-in gallery-item">
+                        <div class="overflow-hidden bg-gray-100"><img src="carter.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Vince Carter"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Vince Carter</h3>
+                    </div>
+                    <div class="md:col-span-5 group cursor-zoom-in gallery-item asym-offset-large">
+                        <div class="overflow-hidden bg-gray-100"><img src="kobe.JPG" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Kobe Bryant"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Kobe Bryant</h3>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div id="abstracts" class="mb-24 scroll-mt-24 relative">
-             <div class="hidden lg:block absolute -left-16 top-0 origin-top-left -rotate-90 text-gray-200 text-xs tracking-[0.5em] uppercase pointer-events-none">
-                Abstracts — Fluidity
+        <div id="lifestyle" class="mb-56 scroll-mt-24 flex flex-col lg:flex-row gap-16">
+            <div class="hidden lg:block w-16">
+                <div class="sticky top-40"><h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Lifestyle</h2></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+            <div class="flex-1">
+                <h2 class="text-2xl font-light border-b border-gray-100 pb-4 mb-16 tracking-wide uppercase text-gray-300 lg:hidden">Lifestyle</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div class="group cursor-zoom-in gallery-item">
+                        <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="lifestyle-1.jpg" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Interior Study I"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Interior Study I</h3> 
+                    </div>
+                    <div class="group cursor-zoom-in gallery-item asym-offset">
+                        <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="lifestyle-2.jpg" loading="lazy" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Floral Arrangement"></div>
+                        <h3 class="mt-4 text-lg font-light italic">Floral Arrangement</h3> 
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="abstracts" class="mb-24 scroll-mt-24 flex flex-col lg:flex-row gap-16">
+             <div class="hidden lg:block w-16">
+                <div class="sticky top-40"><h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Abstracts</h2></div>
+            </div>
+            <div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <div class="group cursor-zoom-in gallery-item">
                     <div class="overflow-hidden bg-gray-100 shadow-sm"><img src="Darwin.jpg" loading="lazy" class="w-full h-auto transition-transform duration-500 group-hover:scale-105" alt="Darwin"></div>
                     <h3 class="mt-4 text-lg font-light italic">Darwin</h3> 
@@ -186,9 +210,10 @@
             <div>
                 <h4 class="text-[10px] uppercase tracking-[0.4em] mb-10 text-gray-500 font-light">Available Collections</h4>
                 <ul class="space-y-6 text-3xl font-light italic">
-                    <li class="hover:pl-4 transition-all duration-500 cursor-pointer text-gray-400 hover:text-white"><a href="#botanicals">Botanicals '26</a></li>
-                    <li class="hover:pl-4 transition-all duration-500 cursor-pointer text-gray-400 hover:text-white"><a href="#pop-culture">Pop Icons</a></li>
-                    <li class="hover:pl-4 transition-all duration-500 cursor-pointer text-gray-400 hover:text-white"><a href="#abstracts">Fluid Abstracts</a></li>
+                    <li><a href="#botanicals" class="hover:pl-4 transition-all duration-500 text-gray-400 hover:text-white">Botanicals '26</a></li>
+                    <li><a href="#pop-culture" class="hover:pl-4 transition-all duration-500 text-gray-400 hover:text-white">Pop Icons</a></li>
+                    <li><a href="#lifestyle" class="hover:pl-4 transition-all duration-500 text-gray-400 hover:text-white">Lifestyle</a></li>
+                    <li><a href="#abstracts" class="hover:pl-4 transition-all duration-500 text-gray-400 hover:text-white">Fluid Abstracts</a></li>
                 </ul>
             </div>
             <div class="md:text-right flex flex-col justify-between items-center md:items-end">
@@ -217,18 +242,17 @@
             cursor.style.top = e.clientY + 'px';
         });
 
-        // Cursor Hover Effects
+        // Hover Effect
         const interactiveElements = document.querySelectorAll('a, button, .gallery-item');
         interactiveElements.forEach(el => {
             el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
             el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
         });
 
-        // Mobile Menu Logic
+        // Mobile Menu
         const menuBtn = document.getElementById('menuBtn');
         const closeBtn = document.getElementById('closeBtn');
         const mobileMenu = document.getElementById('mobileMenu');
-        
         menuBtn.onclick = () => { mobileMenu.classList.replace('menu-closed', 'menu-open'); };
         closeBtn.onclick = () => { mobileMenu.classList.replace('menu-open', 'menu-closed'); };
 
@@ -250,7 +274,7 @@
 
         lightbox.onclick = () => { lightbox.classList.add('hidden'); lightbox.classList.remove('flex'); };
 
-        // Scroll logic for Back to Top
+        // Back to Top
         const backBtn = document.getElementById('backToTop');
         window.onscroll = () => {
             if (window.scrollY > 600) backBtn.classList.replace('hidden-btn', 'visible-btn');
