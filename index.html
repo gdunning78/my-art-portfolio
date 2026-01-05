@@ -19,7 +19,6 @@
         .menu-open { transform: translateX(0); }
         .menu-closed { transform: translateX(100%); }
 
-        /* Lightbox specific style */
         #lightbox { transition: opacity 0.3s ease; }
     </style>
 </head>
@@ -75,28 +74,40 @@
         </ul>
     </div>
 
-    <header class="text-center py-12 md:py-20 border-b border-gray-100">
-        <p class="italic text-gray-400 mb-2 font-light">Acrylic & Watercolor</p>
-        <h2 class="text-4xl md:text-5xl font-light mb-4 text-slate-800">Modern Art</h2>
-    </header>
+    <header class="min-h-[85vh] flex items-center bg-[#fcfcfc] border-b border-gray-50">
+        <div class="max-w-6xl mx-auto px-6 py-12 lg:py-20 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-24 items-center">
+                
+                <div class="order-2 lg:order-1 flex justify-center">
+                    <div class="relative group max-w-sm w-full">
+                        <div class="absolute -inset-4 border border-gray-200 translate-x-3 translate-y-3 pointer-events-none transition-transform duration-700 group-hover:translate-x-0 group-hover:translate-y-0"></div>
+                        <div class="relative overflow-hidden bg-gray-100 aspect-[4/5] shadow-2xl">
+                            <img src="sophia-profile.jpg" alt="Sophia Bateman" class="w-full h-full object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700">
+                        </div>
+                    </div>
+                </div>
 
-    <section class="max-w-4xl mx-auto px-8 py-12 text-center">
-        <div class="mb-6 flex justify-center">
-            <div class="w-24 h-24 md:w-32 md:h-32 rounded-full overflow-hidden bg-gray-100 border border-gray-100 shadow-sm">
-                <img src="sophia-profile.jpg" alt="Sophia Bateman" class="w-full h-full object-cover">
+                <div class="order-1 lg:order-2 text-center lg:text-left">
+                    <p class="italic text-gray-400 mb-4 font-light tracking-[0.15em] uppercase text-xs">Acrylic & Watercolor Artist</p>
+                    <h2 class="text-5xl md:text-7xl font-light mb-8 text-slate-900 leading-[1.1]">Modern Art & <br><span class="italic">Fluid Beauty.</span></h2>
+                    <p class="text-gray-500 max-w-md mx-auto lg:mx-0 mb-10 font-light leading-relaxed text-lg">
+                        Sophia Bateman explores the intersection of pop culture and the natural world through vibrant, contemporary works.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-8 justify-center lg:justify-start items-center">
+                        <a href="#botanicals" class="bg-black text-white px-10 py-4 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all shadow-lg hover:shadow-xl active:scale-95">
+                            View Collections
+                        </a>
+                        <a href="about.html" class="text-xs uppercase tracking-[0.2em] border-b border-black pb-1 hover:text-gray-400 transition-colors">
+                            The Story
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
-        <h3 class="text-xl md:text-2xl font-light italic mb-4">Capturing fluid beauty.</h3>
-        <p class="text-gray-500 max-w-lg mx-auto mb-6 font-light leading-relaxed">
-            Sophia Bateman is a contemporary artist specializing in vibrant acrylics and delicate watercolors. 
-            Her work explores the intersection of pop culture and the natural world.
-        </p>
-        <a href="about.html" class="text-xs uppercase tracking-widest border-b border-black pb-1 hover:text-gray-400 transition-colors">
-            Read the full story
-        </a>
-    </section>
+    </header>
+
     <main class="max-w-6xl mx-auto p-6 lg:p-12">
-        
         <div id="botanicals" class="mb-24 scroll-mt-24">
             <h2 class="text-2xl md:text-3xl font-light border-b border-gray-100 pb-4 mb-10 tracking-wide uppercase text-gray-300">Botanicals</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -185,7 +196,6 @@
                 </div>
             </div>
         </div>
-
     </main>
 
     <button id="backToTop" class="fixed bottom-6 right-6 z-40 bg-white border border-gray-200 p-3 rounded-full shadow-lg hover:bg-black hover:text-white transition-all duration-300 hidden-btn">
