@@ -9,30 +9,80 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
         h1, h2, h3 { font-family: 'Bodoni Moda', serif; }
-        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; cursor: none; }
+        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; cursor: none; overflow-x: hidden; }
         
         /* Custom Cursor */
         #cursor { width: 8px; height: 8px; background: black; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease, background 0.3s ease; transform: translate(-50%, -50%); }
         .cursor-hover #cursor { transform: translate(-50%, -50%) scale(5); background: rgba(0,0,0,0.05); border: 0.5px solid rgba(0,0,0,0.2); }
 
         .product-card:hover .cart-overlay { opacity: 1; transform: translateY(0); }
+
+        /* Cart Animation States */
+        #cartDrawer.active { visibility: visible; }
+        #cartDrawer.active #cartOverlay { opacity: 1; }
+        #cartDrawer.active #cartPanel { transform: translateX(0); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #eee; border-radius: 10px; }
+
+        #cartBadge {
+            position: absolute;
+            top: -5px;
+            right: -8px;
+            background: black;
+            color: white;
+            font-size: 8px;
+            width: 15px;
+            height: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        #cartBadge.visible { opacity: 1; }
     </style>
 </head>
 <body class="text-gray-900">
 
     <div id="cursor" class="hidden md:block"></div>
 
+    <div id="cartDrawer" class="fixed inset-0 z-[150] invisible transition-all duration-500">
+        <div id="cartOverlay" class="absolute inset-0 bg-black/20 backdrop-blur-sm opacity-0 transition-opacity duration-500" onclick="toggleCart()"></div>
+        <div id="cartPanel" class="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-[-20px_0_50px_rgba(0,0,0,0.05)] translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col">
+            <div class="p-8 border-b border-gray-50 flex justify-between items-center">
+                <div>
+                    <h2 class="text-xl font-light uppercase tracking-[0.2em] text-slate-900">Your Selection</h2>
+                    <p id="itemCountLabel" class="text-[9px] uppercase tracking-widest text-gray-400 mt-1">0 Items</p>
+                </div>
+                <button onclick="toggleCart()" class="group p-2">
+                    <i data-lucide="x" class="w-5 h-5 text-gray-400 group-hover:text-black group-hover:rotate-90 transition-all duration-300"></i>
+                </button>
+            </div>
+            <div id="cartItems" class="flex-1 overflow-y-auto px-8 py-6 space-y-8 custom-scrollbar"></div>
+            <div class="p-8 bg-[#fcfcfc] border-t border-gray-100">
+                <div class="flex justify-between items-end mb-6">
+                    <span class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Total Est.</span>
+                    <span id="cartTotal" class="text-2xl font-light text-slate-900">$0.00</span>
+                </div>
+                <button class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.4em] hover:bg-slate-800 transition-all mb-4">Proceed to Checkout</button>
+                <button onclick="toggleCart()" class="w-full text-[9px] uppercase tracking-[0.2em] text-gray-400 hover:text-black">Continue Browsing</button>
+            </div>
+        </div>
+    </div>
+
     <nav class="p-6 md:p-8 flex justify-between items-center max-w-6xl mx-auto relative z-40">
         <h1 class="text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" onclick="window.location.href='index.html'">Sophia Bateman</h1>
-        
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
             <a href="index.html" class="hover:text-black transition-colors">Gallery</a>
             <a href="shop.html" class="text-black font-medium border-b border-black">Shop</a>
             <a href="about.html" class="hover:text-black transition-colors">About</a>
             <a href="contact.html" class="hover:text-black transition-colors">Contact</a>
-            <button class="relative ml-4">
+            <button onclick="toggleCart()" class="relative ml-4 p-1">
                 <i data-lucide="shopping-bag" class="w-5 h-5 text-black"></i>
-                <span class="absolute -top-2 -right-2 bg-black text-white text-[8px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
+                <span id="cartBadge">0</span>
             </button>
         </div>
     </nav>
@@ -52,7 +102,7 @@
                 <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
                     <img src="carter.JPG" alt="Vince Carter Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
-                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                        <button onclick="quickAdd('Vince Carter', 110.00, 'carter.JPG', 'Standard Print')" class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
                             Quick Add
                         </button>
                     </div>
@@ -64,14 +114,14 @@
                     </div>
                     <p class="text-sm font-light">$110.00</p>
                 </div>
-                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+                <button onclick="quickAdd('Vince Carter', 110.00, 'carter.JPG', 'Standard Print')" class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
             </div>
 
             <div class="product-card group">
                 <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
                     <img src="Nike Shoe.JPG" alt="Nike Shoe Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
-                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                        <button onclick="quickAdd('Nike Shoe', 95.00, 'Nike Shoe.JPG', 'Standard Print')" class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
                             Quick Add
                         </button>
                     </div>
@@ -83,14 +133,14 @@
                     </div>
                     <p class="text-sm font-light">$95.00</p>
                 </div>
-                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+                <button onclick="quickAdd('Nike Shoe', 95.00, 'Nike Shoe.JPG', 'Standard Print')" class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
             </div>
 
             <div class="product-card group">
                 <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
                     <img src="Marbles.jpg" alt="Marbles Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                     <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
-                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                        <button onclick="quickAdd('Marbles', 125.00, 'Marbles.jpg', 'Standard Print')" class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
                             Quick Add
                         </button>
                     </div>
@@ -102,7 +152,7 @@
                     </div>
                     <p class="text-sm font-light">$125.00</p>
                 </div>
-                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+                <button onclick="quickAdd('Marbles', 125.00, 'Marbles.jpg', 'Standard Print')" class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
             </div>
 
         </div>
@@ -114,6 +164,76 @@
 
     <script>
         lucide.createIcons();
+
+        // CART LOGIC
+        let cart = JSON.parse(localStorage.getItem('sophia_cart')) || [];
+
+        function toggleCart() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('active');
+            document.body.style.overflow = drawer.classList.contains('active') ? 'hidden' : 'auto';
+            renderCart();
+        }
+
+        function quickAdd(title, price, img, option) {
+            const item = { id: Date.now(), title, price, img, option };
+            cart.push(item);
+            localStorage.setItem('sophia_cart', JSON.stringify(cart));
+            toggleCart();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            localStorage.setItem('sophia_cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            const badge = document.getElementById('cartBadge');
+            const countLabel = document.getElementById('itemCountLabel');
+            
+            countLabel.innerText = `${cart.length} ${cart.length === 1 ? 'Item' : 'Items'}`;
+            if (cart.length > 0) { badge.innerText = cart.length; badge.classList.add('visible'); }
+            else { badge.classList.remove('visible'); }
+
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="h-64 flex flex-col items-center justify-center text-center"><i data-lucide="shopping-bag" class="w-8 h-8 text-gray-100 mb-4"></i><p class="text-xs uppercase tracking-widest text-gray-300 font-light">Your cart is empty</p></div>`;
+                totalEl.innerText = "$0.00";
+            } else {
+                let total = 0;
+                container.innerHTML = cart.map(item => {
+                    total += item.price;
+                    return `
+                        <div class="flex gap-6 items-start group">
+                            <div class="w-20 h-24 bg-gray-50 overflow-hidden flex-shrink-0 relative">
+                                <img src="${item.img}" class="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 transition-all duration-500">
+                            </div>
+                            <div class="flex-1 flex flex-col h-24 justify-between py-1">
+                                <div>
+                                    <div class="flex justify-between items-start">
+                                        <h4 class="text-sm font-light italic text-slate-800">${item.title}</h4>
+                                        <button onclick="removeFromCart(${item.id})" class="text-gray-300 hover:text-red-400 transition-colors">
+                                            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mt-1">${item.option}</p>
+                                </div>
+                                <div class="flex justify-between items-end">
+                                    <span class="text-[10px] text-gray-400 italic">Qty: 1</span>
+                                    <span class="text-sm font-medium text-slate-900">$${item.price.toFixed(2)}</span>
+                                </div>
+                            </div>
+                        </div>`;
+                }).join('');
+                totalEl.innerText = `$${total.toFixed(2)}`;
+            }
+            lucide.createIcons();
+        }
+
+        // Initial badge check
+        renderCart();
 
         // Cursor Logic
         const cursor = document.getElementById('cursor');
