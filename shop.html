@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Prints | Sophia Bateman</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; }
+        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; cursor: none; }
+        
+        /* Custom Cursor */
+        #cursor { width: 8px; height: 8px; background: black; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease, background 0.3s ease; transform: translate(-50%, -50%); }
+        .cursor-hover #cursor { transform: translate(-50%, -50%) scale(5); background: rgba(0,0,0,0.05); border: 0.5px solid rgba(0,0,0,0.2); }
+
+        .product-card:hover .cart-overlay { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body class="text-gray-900">
+
+    <div id="cursor" class="hidden md:block"></div>
+
+    <nav class="p-6 md:p-8 flex justify-between items-center max-w-6xl mx-auto relative z-40">
+        <h1 class="text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" onclick="window.location.href='index.html'">Sophia Bateman</h1>
+        
+        <div class="hidden md:flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
+            <a href="index.html" class="hover:text-black transition-colors">Gallery</a>
+            <a href="shop.html" class="text-black font-medium border-b border-black">Shop</a>
+            <a href="about.html" class="hover:text-black transition-colors">About</a>
+            <a href="contact.html" class="hover:text-black transition-colors">Contact</a>
+            <button class="relative ml-4">
+                <i data-lucide="shopping-bag" class="w-5 h-5 text-black"></i>
+                <span class="absolute -top-2 -right-2 bg-black text-white text-[8px] w-4 h-4 flex items-center justify-center rounded-full">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <header class="py-16 md:py-24 text-center">
+        <p class="italic text-gray-400 mb-2 font-light tracking-[0.2em] uppercase text-[10px]">Limited Edition</p>
+        <h2 class="text-5xl md:text-6xl font-light text-slate-900">Fine Art Prints</h2>
+        <p class="text-gray-500 mt-6 max-w-md mx-auto font-light text-sm px-6">
+            Museum-quality Giclée prints on heavyweight archival paper. Signed and numbered by the artist.
+        </p>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 pb-40">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8">
+            
+            <div class="product-card group">
+                <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
+                    <img src="carter.JPG" alt="Vince Carter Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
+                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                            Quick Add
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl italic">Vince Carter</h3>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Pop Culture Series</p>
+                    </div>
+                    <p class="text-sm font-light">$110.00</p>
+                </div>
+                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+            </div>
+
+            <div class="product-card group">
+                <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
+                    <img src="Nike Shoe.JPG" alt="Nike Shoe Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
+                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                            Quick Add
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl italic">Nike Shoe</h3>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Lifestyle Series</p>
+                    </div>
+                    <p class="text-sm font-light">$95.00</p>
+                </div>
+                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+            </div>
+
+            <div class="product-card group">
+                <div class="relative overflow-hidden bg-gray-100 aspect-[3/4] mb-6">
+                    <img src="Marbles.jpg" alt="Marbles Print" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                    <div class="cart-overlay absolute inset-x-0 bottom-0 p-4 opacity-0 transform translate-y-4 transition-all duration-300 hidden md:block">
+                        <button class="w-full bg-white/90 backdrop-blur text-black py-3 text-[10px] uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                            Quick Add
+                        </button>
+                    </div>
+                </div>
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h3 class="text-xl italic">Marbles</h3>
+                        <p class="text-[10px] text-gray-400 uppercase tracking-widest mt-1">Abstract Series</p>
+                    </div>
+                    <p class="text-sm font-light">$125.00</p>
+                </div>
+                <button class="w-full mt-6 md:hidden border border-black py-3 text-[10px] uppercase tracking-widest">Add to Cart</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="py-12 px-8 border-t border-gray-100 text-center">
+        <p class="text-[9px] text-gray-400 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman. Worldwide Shipping Available.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, .product-card');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+        });
+    </script>
+</body>
+</html>
