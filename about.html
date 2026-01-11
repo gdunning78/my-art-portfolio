@@ -8,11 +8,28 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;1,400&family=Inter:wght@300;400&display=swap');
-        h1, h2 { font-family: 'Bodoni+Moda', serif; }
-        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; }
+        
+        /* Fixed: Font name corrected and h3 added for safety */
+        h1, h2, h3 { font-family: 'Bodoni Moda', serif; }
+        
+        /* Custom Cursor & Smooth scroll */
+        body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; cursor: none; }
+
+        #cursor { 
+            width: 8px; height: 8px; background: black; border-radius: 50%; 
+            position: fixed; pointer-events: none; z-index: 9999; 
+            transition: transform 0.1s ease, background 0.3s ease; 
+            transform: translate(-50%, -50%); 
+        }
+        .cursor-hover #cursor { 
+            transform: translate(-50%, -50%) scale(5); 
+            background: rgba(0,0,0,0.05); border: 0.5px solid rgba(0,0,0,0.2); 
+        }
     </style>
 </head>
 <body class="text-gray-900">
+
+    <div id="cursor" class="hidden md:block"></div>
 
     <nav class="p-8 flex justify-between items-center max-w-6xl mx-auto w-full">
         <a href="index.html" class="text-3xl tracking-widest uppercase hover:opacity-70 transition-opacity">
@@ -42,7 +59,7 @@
                         "I believe every canvas tells a story of a single moment in time—whether it's the ripple in a lake or the way a shadow falls across a face. My goal is to invite the viewer to pause and find peace in those details."
                     </p>
                     <p>
-                        When she isn't in her studio, Sophia finds inspiration in the rugged landscapes of [Your Region], which often serve as the raw foundation for her abstract collections.
+                        When she isn't in her studio, Sophia finds inspiration in nature, which often serves as the raw foundation for her abstract collections.
                     </p>
                 </div>
 
@@ -55,22 +72,35 @@
         </div>
     </main>
 
-<footer class="py-24 px-8 bg-[#111] text-white">
-    <div class="max-w-6xl mx-auto text-center space-y-6">
-        <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
-        
-        <div class="flex justify-center">
-            <a href="https://instagram.com/bateman_art" target="_blank" class="text-gray-500 hover:text-white transition-colors">
-                <i data-lucide="instagram" class="w-6 h-6"></i>
-            </a>
-        </div>
+    <footer class="py-24 px-8 bg-[#111] text-white">
+        <div class="max-w-6xl mx-auto text-center space-y-6">
+            <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
+            
+            <div class="flex justify-center">
+                <a href="https://instagram.com/bateman_art" target="_blank" class="text-gray-500 hover:text-white transition-colors">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                </a>
+            </div>
 
-        <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
-    </div>
-</footer>
+            <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
+        </div>
+    </footer>
 
     <script>
-      lucide.createIcons();
+        lucide.createIcons();
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', e => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Add hover effect to interactive elements
+        document.querySelectorAll('a, button, input').forEach(el => {
+            el.onmouseenter = () => document.body.classList.add('cursor-hover');
+            el.onmouseleave = () => document.body.classList.remove('cursor-hover');
+        });
     </script>
 </body>
 </html>
