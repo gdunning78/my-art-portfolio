@@ -224,18 +224,12 @@
 
         <div class="flex flex-col items-center space-y-6 pb-12">
             <p class="text-[9px] uppercase tracking-[0.3em] text-gray-400">Follow the process</p>
-            <div class="flex space-x-8 text-gray-400">
-                <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-black transition-colors">
-    <i data-lucide="instagram" class="w-5 h-5"></i>
-</a>
-                <a href="https://pinterest.com" target="_blank" class="hover:text-black transition-colors">
-                    <i data-lucide="pin" class="w-5 h-5"></i>
-                </a>
-                <a href="mailto:hello@sophiabateman.com" class="hover:text-black transition-colors">
-                    <i data-lucide="mail" class="w-5 h-5"></i>
-                </a>
-            </div>
-            <p class="text-[8px] uppercase tracking-[0.5em] text-gray-300 mt-4">© 2026 Sophia Bateman</p>
+ <div class="flex flex-col items-center space-y-6 pb-12">
+            <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-black transition-colors">
+            <i data-lucide="instagram" class="w-5 h-5"></i>
+        </a>
+    </div>
+                <p class="text-[8px] uppercase tracking-[0.5em] text-gray-300 mt-4">© 2026 Sophia Bateman</p>
         </div>
     </div>
 </div>
@@ -523,11 +517,16 @@ document.getElementById('closeMenu').addEventListener('click', toggleMenu);
             document.body.style.overflow = 'auto';
         };
 
-        window.onscroll = () => {
-            const b = document.getElementById('backToTop');
-            if (window.scrollY > 500) b.classList.replace('hidden-btn', 'visible-btn');
-            else b.classList.replace('visible-btn', 'hidden-btn');
-        };
+window.onscroll = () => {
+    const b = document.getElementById('backToTop');
+    if (window.scrollY > 500) {
+        b.classList.remove('hidden-btn');
+        b.classList.add('visible-btn');
+    } else {
+        b.classList.remove('visible-btn');
+        b.classList.add('hidden-btn');
+    }
+};
 
         function setLightboxMode(m) {
             document.getElementById('content-original').classList.toggle('hidden', m !== 'original');
@@ -568,19 +567,16 @@ function processOrder() {
         cart = [];
         localStorage.removeItem('sophia_cart');
         
-        // 2. Update the UI (badge and drawer list)
+// 2. Update the UI (badge and drawer list)
         if(typeof updateCartBadge === "function") updateCartBadge();
         if(typeof renderCart === "function") renderCart();
-
-        // 3. Show the success message
+        
+        // 3. Show success state
         document.getElementById('checkoutForm').classList.add('hidden');
         document.getElementById('checkoutSuccess').classList.remove('hidden');
-        document.getElementById('checkoutHeader').innerText = "Success";
-        
         btn.innerText = "Complete Purchase";
         btn.disabled = false;
-        lucide.createIcons(); // Refresh icons
-    }, 2000);
+    }, 1500);
 }
 // UPDATED MOBILE MENU LOGIC
 function toggleMenu() {
@@ -606,7 +602,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
     if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
 });
-    </script>
+
+// Back to Top Click Logic
+document.getElementById('backToTop').addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+    
+</script>
 <div id="checkoutOverlay" class="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center p-6">
     <button onclick="closeCheckout()" class="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors">
         <i data-lucide="x" class="w-8 h-8"></i>
