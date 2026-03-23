@@ -20,17 +20,21 @@
         .menu-open, .cart-open { transform: translateX(0) !important; }
         .menu-closed, .cart-closed { transform: translateX(100%) !important; }
 
-        /* Custom Cursor */
-        #cursor { width: 8px; height: 8px; background: black; border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transition: transform 0.1s ease, background 0.3s ease; transform: translate(-50%, -50%); }
-        .cursor-hover #cursor { transform: translate(-50%, -50%) scale(5); background: rgba(0,0,0,0.05); border: 0.5px solid rgba(0,0,0,0.2); }
-
-        .vertical-text { writing-mode: vertical-rl; text-orientation: mixed; transform: rotate(180deg); white-space: nowrap; }
-        .toggle-active { background-color: black !important; color: white !important; }
-
-        @media (min-width: 768px) {
-            .asym-offset { transform: translateY(60px); }
-            .asym-offset-large { transform: translateY(120px); }
-        }
+/* Custom Cursor */
+#cursor { 
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    position: fixed; 
+    pointer-events: none; /* Crucial: allows you to click through the cursor */
+    z-index: 99999; 
+    background: white; 
+    mix-blend-mode: difference;
+    transition: transform 0.1s ease-out;
+    transform: translate(-50%, -50%);
+    left: 0;
+    top: 0;
+}
 
         /* Checkout Overlay Styles */
         #checkoutOverlay { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); visibility: hidden; opacity: 0; }
@@ -191,57 +195,32 @@
         <button id="menuBtn" class="md:hidden text-gray-500 hover:text-black"><i data-lucide="menu" class="w-6 h-6"></i></button>
     </nav>
 
-<div id="mobileMenu" class="fixed inset-0 z-[200] menu-closed md:hidden overflow-hidden">
-    <div class="absolute inset-0 bg-white/95 backdrop-blur-2xl"></div>
-    
-    <div class="relative h-full flex flex-col p-8">
-        <div class="flex justify-end">
-            <button id="closeMenu" class="p-2 text-gray-400 hover:text-black transition-transform active:scale-90">
-                <i data-lucide="x" class="w-8 h-8"></i>
-            </button>
-        </div>
-
-        <div class="flex-1 flex flex-col items-center justify-center space-y-10">
-                    
-            <div class="w-12 h-[1px] bg-gray-100"></div> 
-            
-            <nav class="flex flex-col items-center space-y-6">
-                <a href="#Athletics" onclick="toggleMenu()" class="text-[11px] uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-colors">Athletics</a>
-                <a href="#Automotive" onclick="toggleMenu()" class="text-[11px] uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-colors">Automotive</a>
-                <a href="#Life" onclick="toggleMenu()" class="text-[11px] uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-colors">Life</a>
-                <a href="#abstracts" onclick="toggleMenu()" class="text-[11px] uppercase tracking-[0.4em] text-gray-400 hover:text-black transition-colors">Abstracts</a>
-            </nav>
-
-            <div class="w-12 h-[1px] bg-gray-100"></div>
-
-            <div class="flex flex-col items-center space-y-6">
-                <a href="about.html" class="text-xs uppercase tracking-[0.2em] text-black font-medium">About</a>
-                <a href="contact.html" class="text-xs uppercase tracking-[0.2em] text-black font-medium">Contact</a>
-            </div>
-        </div>
-
-        <div class="flex flex-col items-center space-y-6 pb-12">
-            <p class="text-[9px] uppercase tracking-[0.3em] text-gray-400">Follow the process</p>
- <div class="flex flex-col items-center space-y-6 pb-12">
-            <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-black transition-colors">
-            <i data-lucide="instagram" class="w-5 h-5"></i>
-        </a>
-    </div>
-                <p class="text-[8px] uppercase tracking-[0.5em] text-gray-300 mt-4">© 2026 Sophia Bateman</p>
-        </div>
-    </div>
-</div>
-<div id="mobileMenu" class="fixed top-0 right-0 h-full w-full bg-white z-[150] menu-closed md:hidden flex flex-col p-8">
+<div id="mobileMenu" class="fixed inset-0 z-[200] bg-white menu-closed md:hidden flex flex-col p-8 transition-transform duration-400 overflow-y-auto">
     <div class="flex justify-end">
-        <button id="closeMenu" class="text-gray-400 hover:text-black">
-            <i data-lucide="x" class="w-8 h-8"></i>
+        <button id="closeMenu" class="text-gray-400 hover:text-black p-2">
+            <i data-lucide="x" class="w-6 h-6"></i>
         </button>
     </div>
-    <div class="flex-1 flex flex-col items-center justify-center space-y-8 text-2xl uppercase tracking-widest font-light italic">
-        <a href="#Athletics" class="hover:text-gray-400" onclick="toggleMenu()">Athletics</a>
-        <a href="#Automotive" class="hover:text-gray-400" onclick="toggleMenu()">Automotive</a>
-        <a href="about.html" class="hover:text-gray-400">About</a>
-        <a href="contact.html" class="hover:text-gray-400">Contact</a>
+
+    <div class="flex-1 flex flex-col items-center justify-center space-y-5 text-base uppercase tracking-[0.3em] font-light">
+        <a href="#Athletics" class="hover:text-gray-400 py-1" onclick="toggleMenu()">Athletics</a>
+        <a href="#Automotive" class="hover:text-gray-400 py-1" onclick="toggleMenu()">Automotive</a>
+        <a href="#Life" class="hover:text-gray-400 py-1" onclick="toggleMenu()">Life</a>
+        <a href="#abstracts" class="hover:text-gray-400 py-1" onclick="toggleMenu()">Abstracts</a>
+        <a href="about.html" class="hover:text-gray-400 py-1">About</a>
+        <a href="contact.html" class="hover:text-gray-400 py-1">Contact</a>
+    </div>
+
+    <div class="flex flex-shrink-0 flex-col items-center space-y-4 pb-8 mt-auto pt-6 border-t border-gray-50">
+        <p class="text-[8px] uppercase tracking-[0.3em] text-gray-400">Instagram</p>
+        <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-black transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+    </svg>
+</a>
+        <p class="text-[8px] uppercase tracking-[0.5em] text-gray-300">© 2026 Sophia Bateman</p>
     </div>
 </div>
     <header class="min-h-screen flex items-center bg-[#fcfcfc] border-b border-gray-50 overflow-hidden relative">
@@ -323,7 +302,7 @@
     </div>
 
     <div class="mt-4">
-        <h3 class="text-lg font-light italic">Serpentine Flow</h3>
+        <h3 class="text-lg font-light italic">Ice Water</h3>
         <p class="text-[9px] text-gray-400 uppercase tracking-widest mt-1">2026 Collection • Mixed Media</p>
     </div>
 </div>
@@ -467,9 +446,11 @@
         <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
         
         <div class="flex justify-center">
-            <a href="https://instagram.com/bateman_art" target="_blank" class="text-gray-500 hover:text-white transition-colors">
-                <i data-lucide="instagram" class="w-6 h-6"></i>
-            </a>
+<a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-gray-400 transition-colors">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+    </svg>
+</a>
         </div>
 
         <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
@@ -480,266 +461,163 @@
         <i data-lucide="chevron-up" class="w-5 h-5"></i>
     </button>
 
-    <script>
-        lucide.createIcons();
+   <script>
+    // 1. Initialize icons immediately
+    lucide.createIcons();
 
-        // CART LOGIC
-        let cart = JSON.parse(localStorage.getItem('sophia_cart')) || [];
+    // 2. Cart Logic
+    let cart = JSON.parse(localStorage.getItem('sophia_cart')) || [];
 
-        function toggleCart() {
-            document.getElementById('cartDrawer').classList.toggle('cart-closed');
-            document.getElementById('cartDrawer').classList.toggle('cart-open');
-            renderCart();
-        }
-// MOBILE MENU LOGIC
+    function toggleCart() {
+        const drawer = document.getElementById('cartDrawer');
+        drawer.classList.toggle('cart-closed');
+        drawer.classList.toggle('cart-open');
+        renderCart();
+    }
+// 3. Mobile Menu Logic
 function toggleMenu() {
     const menu = document.getElementById('mobileMenu');
+    
+    // Toggle the classes to slide the menu in/out
     menu.classList.toggle('menu-closed');
     menu.classList.toggle('menu-open');
     
-    // Prevent scrolling when menu is open
     if (menu.classList.contains('menu-open')) {
         document.body.style.overflow = 'hidden';
+        
+        // Force Lucide to scan the DOM and inject the SVG icon
+        // This solves the "missing icon" issue on mobile
+        lucide.createIcons(); 
     } else {
         document.body.style.overflow = 'auto';
     }
 }
 
-// Attach the events to the buttons
-document.getElementById('menuBtn').addEventListener('click', toggleMenu);
-document.getElementById('closeMenu').addEventListener('click', toggleMenu);
-        function addToCartFromLightbox() {
-            const title = document.getElementById('lightbox-caption').innerText;
-            const img = document.getElementById('lightbox-img').src;
-            const sizeSelect = document.getElementById('printSizeSelect');
-            const price = parseFloat(sizeSelect.value);
-            const size = sizeSelect.options[sizeSelect.selectedIndex].text.split(' — ')[0];
-            cart.push({ id: Date.now(), title, price, size, img });
-            localStorage.setItem('sophia_cart', JSON.stringify(cart));
-            updateCartBadge();
-            document.getElementById('lightbox').classList.replace('flex', 'hidden');
-            document.body.style.overflow = 'auto';
-            toggleCart();
-        }
+    // Attach menu events
+    document.getElementById('menuBtn').addEventListener('click', toggleMenu);
+    document.getElementById('closeMenu').addEventListener('click', toggleMenu);
 
-        function removeItem(id) {
-            cart = cart.filter(i => i.id !== id);
-            localStorage.setItem('sophia_cart', JSON.stringify(cart));
-            renderCart();
-            updateCartBadge();
-        }
-
-        function renderCart() {
-            const list = document.getElementById('cartItemsList');
-            const subtotalEl = document.getElementById('cartSubtotal');
-            list.innerHTML = '';
-            let total = 0;
-            if (cart.length === 0) {
-                document.getElementById('emptyCartMsg').style.display = 'flex';
-                document.getElementById('proceedToCheckoutBtn').style.opacity = '0.3';
-            } else {
-                document.getElementById('emptyCartMsg').style.display = 'none';
-                document.getElementById('proceedToCheckoutBtn').style.opacity = '1';
-                cart.forEach(item => {
-                    total += item.price;
-                    list.innerHTML += `<div class="flex gap-4 items-center pb-6 border-b border-gray-50">
-                        <img src="${item.img}" class="w-20 h-24 object-cover">
-                        <div class="flex-1 text-xs uppercase"><b>${item.title}</b><p class="text-gray-400 mt-1">${item.size}</p><p class="mt-2">$${item.price}</p></div>
-                        <button onclick="removeItem(${item.id})"><i data-lucide="trash-2" class="w-4 h-4 text-gray-300"></i></button>
-                    </div>`;
-                });
-            }
-            subtotalEl.innerText = `$${total.toFixed(2)}`;
-            lucide.createIcons();
-        }
-
-        function updateCartBadge() {
-            const badge = document.getElementById('cartCountBadge');
-            badge.innerText = cart.length;
-            badge.style.opacity = cart.length > 0 ? '1' : '0';
-        }
-
-        // CHECKOUT
-        function openCheckout() {
-            if (cart.length === 0) return;
-            toggleCart();
-            document.getElementById('checkoutOverlay').classList.add('active');
-            document.getElementById('checkoutForm').classList.remove('hidden');
-            document.getElementById('checkoutSuccess').classList.add('hidden');
-        }
-
-        function closeCheckout() {
-            document.getElementById('checkoutOverlay').classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function processOrder() {
-            const btn = document.querySelector('#checkoutForm button');
-            btn.innerText = "Processing...";
-            setTimeout(() => {
-                // Clear the data
-                cart = [];
-                localStorage.removeItem('sophia_cart');
-                updateCartBadge();
-                renderCart();
-                
-                document.getElementById('checkoutForm').classList.add('hidden');
-                document.getElementById('checkoutSuccess').classList.remove('hidden');
-                lucide.createIcons();
-            }, 1500);
-        }
-
-        // CURSOR & UI
-        const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', e => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-        });
-        document.querySelectorAll('a, button, .gallery-item').forEach(el => {
-            el.onmouseenter = () => document.body.classList.add('cursor-hover');
-            el.onmouseleave = () => document.body.classList.remove('cursor-hover');
-        });
-
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.onclick = () => {
-                document.getElementById('lightbox-img').src = item.querySelector('img').src;
-                document.getElementById('lightbox-caption').innerText = item.querySelector('h3').innerText;
-                document.getElementById('lightbox').classList.replace('hidden', 'flex');
-                document.body.style.overflow = 'hidden';
-            };
-        });
-
-        document.getElementById('closeLightbox').onclick = () => {
-            document.getElementById('lightbox').classList.replace('flex', 'hidden');
-            document.body.style.overflow = 'auto';
-        };
-
-window.onscroll = () => {
-    const b = document.getElementById('backToTop');
-    if (window.scrollY > 500) {
-        b.classList.remove('hidden-btn');
-        b.classList.add('visible-btn');
-    } else {
-        b.classList.remove('visible-btn');
-        b.classList.add('hidden-btn');
-    }
-};
-
-        function setLightboxMode(m) {
-            document.getElementById('content-original').classList.toggle('hidden', m !== 'original');
-            document.getElementById('content-print').classList.toggle('hidden', m === 'original');
-            document.getElementById('toggle-orig-btn').classList.toggle('toggle-active', m === 'original');
-            document.getElementById('toggle-print-btn').classList.toggle('toggle-active', m !== 'original');
-        }
-
+    function addToCartFromLightbox() {
+        const title = document.getElementById('lightbox-caption').innerText;
+        const img = document.getElementById('lightbox-img').src;
+        const sizeSelect = document.getElementById('printSizeSelect');
+        const price = parseFloat(sizeSelect.value);
+        const size = sizeSelect.options[sizeSelect.selectedIndex].text.split(' — ')[0];
+        cart.push({ id: Date.now(), title, price, size, img });
+        localStorage.setItem('sophia_cart', JSON.stringify(cart));
         updateCartBadge();
-// Opens the checkout layer
-function openCheckout() {
-    if (cart.length === 0) return; // Don't open if cart is empty
-    
-    // Close the cart drawer first if it's open
-    const drawer = document.getElementById('cartDrawer');
-    if (drawer.classList.contains('cart-open')) toggleCart();
-
-    document.getElementById('checkoutOverlay').classList.add('active');
-    document.getElementById('checkoutForm').classList.remove('hidden');
-    document.getElementById('checkoutSuccess').classList.add('hidden');
-    document.body.style.overflow = 'hidden'; // Stop background scrolling
-}
-
-// Closes the checkout layer
-function closeCheckout() {
-    document.getElementById('checkoutOverlay').classList.remove('active');
-    document.body.style.overflow = 'auto'; // Restore scrolling
-}
-
-// Simulates the processing and clears the cart
-function processOrder() {
-    const btn = document.querySelector('#checkoutForm button');
-    btn.innerText = "Processing...";
-    btn.disabled = true;
-
-    setTimeout(() => {
-        // 1. Clear the actual data
-        cart = [];
-        localStorage.removeItem('sophia_cart');
-        
-// 2. Update the UI (badge and drawer list)
-        if(typeof updateCartBadge === "function") updateCartBadge();
-        if(typeof renderCart === "function") renderCart();
-        
-        // 3. Show success state
-        document.getElementById('checkoutForm').classList.add('hidden');
-        document.getElementById('checkoutSuccess').classList.remove('hidden');
-        btn.innerText = "Complete Purchase";
-        btn.disabled = false;
-    }, 1500);
-}
-// UPDATED MOBILE MENU LOGIC
-function toggleMenu() {
-    const menu = document.getElementById('mobileMenu');
-    const isOpening = menu.classList.contains('menu-closed');
-
-    if (isOpening) {
-        menu.classList.remove('menu-closed');
-        menu.classList.add('menu-open');
-        document.body.style.overflow = 'hidden'; // Lock background scroll
-    } else {
-        menu.classList.remove('menu-open');
-        menu.classList.add('menu-closed');
-        document.body.style.overflow = 'auto'; // Restore scroll
+        document.getElementById('lightbox').classList.replace('flex', 'hidden');
+        document.body.style.overflow = 'auto';
+        toggleCart();
     }
-}
 
-// Add event listeners after page loads
-document.addEventListener('DOMContentLoaded', () => {
-    const menuBtn = document.getElementById('menuBtn');
-    const closeBtn = document.getElementById('closeMenu');
+    function removeItem(id) {
+        cart = cart.filter(i => i.id !== id);
+        localStorage.setItem('sophia_cart', JSON.stringify(cart));
+        renderCart();
+        updateCartBadge();
+    }
+
+    function renderCart() {
+        const list = document.getElementById('cartItemsList');
+        const subtotalEl = document.getElementById('cartSubtotal');
+        list.innerHTML = '';
+        let total = 0;
+        if (cart.length === 0) {
+            document.getElementById('emptyCartMsg').style.display = 'flex';
+            document.getElementById('proceedToCheckoutBtn').style.opacity = '0.3';
+        } else {
+            document.getElementById('emptyCartMsg').style.display = 'none';
+            document.getElementById('proceedToCheckoutBtn').style.opacity = '1';
+            cart.forEach(item => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="flex gap-4 items-center pb-6 border-b border-gray-50">
+                        <img src="${item.img}" class="w-20 h-24 object-cover">
+                        <div class="flex-1 text-xs uppercase">
+                            <b>${item.title}</b>
+                            <p class="text-gray-400 mt-1">${item.size}</p>
+                            <p class="mt-2">$${item.price}</p>
+                        </div>
+                        <button onclick="removeItem(${item.id})">
+                            <i data-lucide="trash-2" class="w-4 h-4 text-gray-300"></i>
+                        </button>
+                    </div>`;
+            });
+        }
+        subtotalEl.innerText = `$${total.toFixed(2)}`;
+        lucide.createIcons(); // Refresh icons inside cart
+    }
+
+    function updateCartBadge() {
+        const badge = document.getElementById('cartCountBadge');
+        badge.innerText = cart.length;
+        badge.style.opacity = cart.length > 0 ? '1' : '0';
+    }
+
+    // 4. Checkout Logic
+    function openCheckout() {
+        if (cart.length === 0) return;
+        toggleCart();
+        document.getElementById('checkoutOverlay').classList.add('active');
+        document.getElementById('checkoutForm').classList.remove('hidden');
+        document.getElementById('checkoutSuccess').classList.add('hidden');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutOverlay').classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function processOrder() {
+        const btn = document.querySelector('#checkoutForm button');
+        const originalText = btn.innerText;
+        btn.innerText = "Processing...";
+        setTimeout(() => {
+            cart = [];
+            localStorage.removeItem('sophia_cart');
+            updateCartBadge();
+            renderCart();
+            document.getElementById('checkoutForm').classList.add('hidden');
+            document.getElementById('checkoutSuccess').classList.remove('hidden');
+            btn.innerText = originalText;
+            lucide.createIcons();
+        }, 1500);
+    }
+
+   // 5. Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
     
-    if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
-    if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
-});
-
-// Back to Top Click Logic
-document.getElementById('backToTop').addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    document.addEventListener('mousemove', (e) => {
+        // Using transform for better performance than top/left
+        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
     });
-});
-    
+
+    // Add scale effect when hovering over links/buttons
+    const interactiveElements = document.querySelectorAll('a, button, select, .gallery-item');
+    interactiveElements.forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(2.5)');
+        el.addEventListener('mouseleave', () => {
+            cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
+        });
+    });
+
+    // 6. Back to Top Logic
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.replace('hidden-btn', 'visible-btn');
+        } else {
+            backToTop.classList.replace('visible-btn', 'hidden-btn');
+        }
+    });
+
+    backToTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Initialize Badge on Load
+    updateCartBadge();
 </script>
-<div id="checkoutOverlay" class="fixed inset-0 z-[200] bg-white flex flex-col items-center justify-center p-6">
-    <button onclick="closeCheckout()" class="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors">
-        <i data-lucide="x" class="w-8 h-8"></i>
-    </button>
-    
-    <div class="max-w-md w-full space-y-12">
-        <div class="text-center">
-            <h2 id="checkoutHeader" class="text-4xl font-light italic mb-2">Checkout</h2>
-            <p class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Secure simulated transaction</p>
-        </div>
-
-        <div id="checkoutForm" class="space-y-6">
-            <div class="space-y-4">
-                <input type="text" placeholder="Full Name" class="w-full border-b border-gray-200 py-3 text-xs uppercase tracking-widest focus:outline-none focus:border-black">
-                <input type="email" placeholder="Email Address" class="w-full border-b border-gray-200 py-3 text-xs uppercase tracking-widest focus:outline-none focus:border-black">
-                <div class="pt-4">
-                    <p class="text-[9px] uppercase tracking-widest text-gray-400 mb-2">Simulated Payment</p>
-                    <input type="text" placeholder="Card Number" class="w-full border border-gray-100 bg-gray-50 px-4 py-3 text-xs">
-                </div>
-            </div>
-            <button onclick="processOrder()" class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all">
-                Complete Purchase
-            </button>
-        </div>
-
-        <div id="checkoutSuccess" class="hidden text-center space-y-6">
-            <div class="flex justify-center"><i data-lucide="check-circle" class="w-16 h-16 text-gray-200"></i></div>
-            <p class="text-lg font-light italic">Thank you. Your order has been placed.</p>
-            <button onclick="closeCheckout()" class="border-b border-black pb-1 text-[10px] uppercase tracking-[0.2em]">Return to Gallery</button>
-        </div>
-    </div>
-</div>
 </body>
 </html>
