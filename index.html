@@ -145,9 +145,9 @@
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
         <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div class="flex justify-center items-center">
-                <img id="lightbox-img" src="" class="max-w-full max-h-[50vh] md:max-h-[80vh] shadow-2xl object-contain">
-            </div>
+            <div class="flex justify-center items-center" id="lightbox-image-container">
+    <img id="lightbox-img" src="" class="max-w-full max-h-[50vh] md:max-h-[80vh] shadow-2xl object-contain">
+</div>
             <div class="flex flex-col text-center md:text-left space-y-6">
                 <div>
                     <h3 id="lightbox-caption" class="text-3xl md:text-4xl font-light italic text-slate-900"></h3>
@@ -502,54 +502,154 @@
         <i data-lucide="chevron-up" class="w-5 h-5"></i>
     </button>
 
-   <script>
-    // 1. Initialize icons immediately
+<script>
+    // 1. Initialize icons and Cart
     lucide.createIcons();
-
-    // 2. Cart Logic
     let cart = JSON.parse(localStorage.getItem('sophia_cart')) || [];
 
+    // 2. Custom Cursor Logic
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    // 3. Scroll & Back to Top Logic (Restored)
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 500) {
+            backToTop.classList.replace('hidden-btn', 'visible-btn');
+        } else {
+            backToTop.classList.replace('visible-btn', 'hidden-btn');
+        }
+    });
+    backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    // 4. Gallery & Lightbox Logic (The Series Fix)
+    function initGallery() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        // Selects the container where the image(s) live
+        const imgContainer = document.querySelector('#lightbox .max-w-6xl > div:first-child');
+        const sizeSelect = document.getElementById('printSizeSelect');
+
+        galleryItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isSeries = item.classList.contains('md:col-span-2');
+                const title = item.querySelector('h3').innerText;
+                const details = item.querySelector('p')?.innerText || "";
+                const printData = JSON.parse(item.getAttribute('data-prints') || "[]");
+
+                imgContainer.innerHTML = '';
+
+                if (isSeries) {
+                    // Inject a 3-column grid for the Abstract Series
+                    const grid = document.createElement('div');
+                    grid.className = "grid grid-cols-3 gap-2 md:gap-4 w-full items-center";
+                    item.querySelectorAll('img').forEach(sourceImg => {
+                        const newImg = document.createElement('img');
+                        newImg.src = sourceImg.src;
+                        newImg.className = "w-full h-auto shadow-lg object-contain bg-white";
+                        grid.appendChild(newImg);
+                    });
+                    imgContainer.appendChild(grid);
+                } else {
+                    // Default Single Image
+                    const singleImg = document.createElement('img');
+                    singleImg.id = "lightbox-img"; 
+                    singleImg.src = item.querySelector('img').src;
+                    singleImg.className = "max-w-full max-h-[50vh] md:max-h-[80vh] shadow-2xl object-contain mx-auto";
+                    imgContainer.appendChild(singleImg);
+                }
+
+                document.getElementById('lightbox-caption').innerText = title;
+                document.getElementById('lightbox-details').innerText = details;
+
+                // Handle Pricing Dropdown
+                sizeSelect.innerHTML = '';
+                const pricing = printData.length > 0 ? printData : [
+                    {size: "8x10", price: 50},
+                    {size: "12x24", price: 110},
+                    {size: "24x36", price: 195}
+                ];
+                pricing.forEach(p => {
+                    const opt = document.createElement('option');
+                    opt.value = p.price;
+                    opt.text = `${p.size} — $${p.price}`;
+                    sizeSelect.appendChild(opt);
+                });
+
+                lightbox.classList.remove('hidden');
+                lightbox.classList.add('flex');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+    }
+
+    // 5. Cart & Checkout Logic (Restored)
     function toggleCart() {
         const drawer = document.getElementById('cartDrawer');
         drawer.classList.toggle('cart-closed');
         drawer.classList.toggle('cart-open');
         renderCart();
     }
-// 3. Mobile Menu Logic
-function toggleMenu() {
-    const menu = document.getElementById('mobileMenu');
-    
-    // Toggle the classes to slide the menu in/out
-    menu.classList.toggle('menu-closed');
-    menu.classList.toggle('menu-open');
-    
-    if (menu.classList.contains('menu-open')) {
-        document.body.style.overflow = 'hidden';
-        
-        // Force Lucide to scan the DOM and inject the SVG icon
-        // This solves the "missing icon" issue on mobile
-        lucide.createIcons(); 
-    } else {
-        document.body.style.overflow = 'auto';
-    }
-}
 
-    // Attach menu events
-    document.getElementById('menuBtn').addEventListener('click', toggleMenu);
-    document.getElementById('closeMenu').addEventListener('click', toggleMenu);
+    function openCheckout() {
+        if (cart.length === 0) return;
+        document.getElementById('checkoutOverlay').classList.add('active');
+    }
+
+    function closeCheckout() {
+        document.getElementById('checkoutOverlay').classList.remove('active');
+    }
 
     function addToCartFromLightbox() {
         const title = document.getElementById('lightbox-caption').innerText;
-        const img = document.getElementById('lightbox-img').src;
+        // Grabs the first image in the lightbox (works for both single and series)
+        const img = document.querySelector('#lightbox div:first-child img').src;
         const sizeSelect = document.getElementById('printSizeSelect');
         const price = parseFloat(sizeSelect.value);
         const size = sizeSelect.options[sizeSelect.selectedIndex].text.split(' — ')[0];
+
         cart.push({ id: Date.now(), title, price, size, img });
         localStorage.setItem('sophia_cart', JSON.stringify(cart));
         updateCartBadge();
-        document.getElementById('lightbox').classList.replace('flex', 'hidden');
-        document.body.style.overflow = 'auto';
+        closeLightbox();
         toggleCart();
+    }
+
+    function renderCart() {
+        const list = document.getElementById('cartItemsList');
+        const subtotalEl = document.getElementById('cartSubtotal');
+        list.innerHTML = '';
+        let total = 0;
+
+        if (cart.length === 0) {
+            document.getElementById('emptyCartMsg').style.display = 'flex';
+        } else {
+            document.getElementById('emptyCartMsg').style.display = 'none';
+            cart.forEach(item => {
+                total += item.price;
+                list.innerHTML += `
+                    <div class="flex gap-4 items-center pb-4 border-b border-gray-50">
+                        <img src="${item.img}" class="w-16 h-20 object-cover">
+                        <div class="flex-1 text-[10px] uppercase">
+                            <b>${item.title}</b>
+                            <p>${item.size}</p>
+                            <b>$${item.price}</b>
+                        </div>
+                        <button onclick="removeItem(${item.id})"><i data-lucide="trash-2" class="w-4 h-4 text-gray-300"></i></button>
+                    </div>`;
+            });
+        }
+        subtotalEl.innerText = `$${total.toFixed(2)}`;
+        lucide.createIcons();
+    }
+
+    function updateCartBadge() {
+        const badge = document.getElementById('cartCountBadge');
+        badge.innerText = cart.length;
+        badge.style.opacity = cart.length > 0 ? '1' : '0';
     }
 
     function removeItem(id) {
@@ -559,198 +659,52 @@ function toggleMenu() {
         updateCartBadge();
     }
 
-    function renderCart() {
-        const list = document.getElementById('cartItemsList');
-        const subtotalEl = document.getElementById('cartSubtotal');
-        list.innerHTML = '';
-        let total = 0;
-        if (cart.length === 0) {
-            document.getElementById('emptyCartMsg').style.display = 'flex';
-            document.getElementById('proceedToCheckoutBtn').style.opacity = '0.3';
-        } else {
-            document.getElementById('emptyCartMsg').style.display = 'none';
-            document.getElementById('proceedToCheckoutBtn').style.opacity = '1';
-            cart.forEach(item => {
-                total += item.price;
-                list.innerHTML += `
-                    <div class="flex gap-4 items-center pb-6 border-b border-gray-50">
-                        <img src="${item.img}" class="w-20 h-24 object-cover">
-                        <div class="flex-1 text-xs uppercase">
-                            <b>${item.title}</b>
-                            <p class="text-gray-400 mt-1">${item.size}</p>
-                            <p class="mt-2">$${item.price}</p>
-                        </div>
-                        <button onclick="removeItem(${item.id})">
-                            <i data-lucide="trash-2" class="w-4 h-4 text-gray-300"></i>
-                        </button>
-                    </div>`;
-            });
-        }
-        subtotalEl.innerText = `$${total.toFixed(2)}`;
-        lucide.createIcons(); // Refresh icons inside cart
-    }
-
-    function updateCartBadge() {
-        const badge = document.getElementById('cartCountBadge');
-        badge.innerText = cart.length;
-        badge.style.opacity = cart.length > 0 ? '1' : '0';
-    }
-
-    // 4. Checkout Logic
-    function openCheckout() {
-        if (cart.length === 0) return;
-        toggleCart();
-        document.getElementById('checkoutOverlay').classList.add('active');
-        document.getElementById('checkoutForm').classList.remove('hidden');
-        document.getElementById('checkoutSuccess').classList.add('hidden');
-    }
-
-    function closeCheckout() {
-        document.getElementById('checkoutOverlay').classList.remove('active');
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.replace('flex', 'hidden');
         document.body.style.overflow = 'auto';
     }
 
-    function processOrder() {
-        const btn = document.querySelector('#checkoutForm button');
-        const originalText = btn.innerText;
-        btn.innerText = "Processing...";
-        setTimeout(() => {
-            cart = [];
-            localStorage.removeItem('sophia_cart');
-            updateCartBadge();
-            renderCart();
-            document.getElementById('checkoutForm').classList.add('hidden');
-            document.getElementById('checkoutSuccess').classList.remove('hidden');
-            btn.innerText = originalText;
-            lucide.createIcons();
-        }, 1500);
-    }
-// 5. Gallery & Lightbox Logic
-function initGallery() {
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
-    const lightboxCaption = document.getElementById('lightbox-caption');
-    const lightboxDetails = document.getElementById('lightbox-details');
+    function setLightboxMode(mode) {
+        const origBtn = document.getElementById('toggle-orig-btn');
+        const printBtn = document.getElementById('toggle-print-btn');
+        const origContent = document.getElementById('content-original');
+        const printContent = document.getElementById('content-print');
 
-    galleryItems.forEach(item => {
-        item.addEventListener('click', () => {
-            const img = item.querySelector('img');
-            const title = item.querySelector('h3').innerText;
-            const details = item.querySelector('p')?.innerText || "Original Artwork";
-
-            // Populate Lightbox
-            lightboxImg.src = img.src;
-            lightboxCaption.innerText = title;
-            lightboxDetails.innerText = details;
-
-            // Show Lightbox
-            lightbox.classList.remove('hidden');
-            lightbox.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Prevent background scroll
-        });
-    });
-}
-// 6. Lightbox Mode Toggle (Original vs Print)
-function setLightboxMode(mode) {
-    const origBtn = document.getElementById('toggle-orig-btn');
-    const printBtn = document.getElementById('toggle-print-btn');
-    const origContent = document.getElementById('content-original');
-    const printContent = document.getElementById('content-print');
-
-    if (mode === 'original') {
-        // Update Buttons
-        origBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
-        printBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
-        // Show/Hide Content
-        origContent.classList.remove('hidden');
-        printContent.classList.add('hidden');
-    } else {
-        // Update Buttons
-        printBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
-        origBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
-        // Show/Hide Content
-        printContent.classList.remove('hidden');
-        origContent.classList.add('hidden');
-    }
-}
-
-// Update the Add to Cart function to handle the price/size selection correctly
-function addToCartFromLightbox() {
-    const title = document.getElementById('lightbox-caption').innerText;
-    const img = document.getElementById('lightbox-img').src;
-    const sizeSelect = document.getElementById('printSizeSelect');
-    
-    // Get the selected price and text
-    const price = parseFloat(sizeSelect.value);
-    const size = sizeSelect.options[sizeSelect.selectedIndex].text.split(' — ')[0];
-
-    // Create the item object
-    const newItem = {
-        id: Date.now(),
-        title: title,
-        price: price,
-        size: size,
-        img: img
-    };
-
-    // Update Cart Array & Storage
-    cart.push(newItem);
-    localStorage.setItem('sophia_cart', JSON.stringify(cart));
-    
-    // UI Updates
-    updateCartBadge();
-    renderCart(); // Force refresh the list inside the drawer
-    
-    // Close Lightbox & Open Cart
-    document.getElementById('lightbox').classList.replace('flex', 'hidden');
-    document.body.style.overflow = 'auto';
-    toggleCart(); 
-}
-// Close Lightbox Logic
-document.getElementById('closeLightbox').addEventListener('click', () => {
-    document.getElementById('lightbox').classList.replace('flex', 'hidden');
-    document.body.style.overflow = 'auto';
-});
-
-// Initialize everything when the page loads
-window.addEventListener('DOMContentLoaded', () => {
-    initGallery();
-    updateCartBadge(); // Ensure the cart number shows up on load
-});
-   // 5. Custom Cursor Logic
-    const cursor = document.getElementById('cursor');
-    
-    document.addEventListener('mousemove', (e) => {
-        // Using transform for better performance than top/left
-        cursor.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
-    });
-
-    // Add scale effect when hovering over links/buttons
-    const interactiveElements = document.querySelectorAll('a, button, select, .gallery-item');
-    interactiveElements.forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.style.transform += ' scale(2.5)');
-        el.addEventListener('mouseleave', () => {
-            cursor.style.transform = cursor.style.transform.replace(' scale(2.5)', '');
-        });
-    });
-
-    // 6. Back to Top Logic
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 500) {
-            backToTop.classList.replace('hidden-btn', 'visible-btn');
+        if (mode === 'original') {
+            origBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
+            printBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
+            origContent.classList.remove('hidden');
+            printContent.classList.add('hidden');
         } else {
-            backToTop.classList.replace('visible-btn', 'hidden-btn');
+            printBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
+            origBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
+            printContent.classList.remove('hidden');
+            origContent.classList.add('hidden');
         }
-    });
+    }
 
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
+    // 6. Mobile Menu Logic
+    function toggleMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('menu-closed');
+        menu.classList.toggle('menu-open');
+        if (menu.classList.contains('menu-open')) {
+            document.body.style.overflow = 'hidden';
+            lucide.createIcons(); 
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
 
-    // Initialize Badge on Load
-    updateCartBadge();
+    // Initialize listeners
+    document.getElementById('closeLightbox').addEventListener('click', closeLightbox);
+    document.getElementById('menuBtn').addEventListener('click', toggleMenu);
+    document.getElementById('closeMenu').addEventListener('click', toggleMenu);
+
+    window.onload = () => {
+        initGallery();
+        updateCartBadge();
+    };
 </script>
 </body>
 </html>
