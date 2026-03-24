@@ -584,7 +584,99 @@ function toggleMenu() {
             lucide.createIcons();
         }, 1500);
     }
+// 5. Gallery & Lightbox Logic
+function initGallery() {
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxDetails = document.getElementById('lightbox-details');
 
+    galleryItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            const title = item.querySelector('h3').innerText;
+            const details = item.querySelector('p')?.innerText || "Original Artwork";
+
+            // Populate Lightbox
+            lightboxImg.src = img.src;
+            lightboxCaption.innerText = title;
+            lightboxDetails.innerText = details;
+
+            // Show Lightbox
+            lightbox.classList.remove('hidden');
+            lightbox.classList.add('flex');
+            document.body.style.overflow = 'hidden'; // Prevent background scroll
+        });
+    });
+}
+// 6. Lightbox Mode Toggle (Original vs Print)
+function setLightboxMode(mode) {
+    const origBtn = document.getElementById('toggle-orig-btn');
+    const printBtn = document.getElementById('toggle-print-btn');
+    const origContent = document.getElementById('content-original');
+    const printContent = document.getElementById('content-print');
+
+    if (mode === 'original') {
+        // Update Buttons
+        origBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
+        printBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
+        // Show/Hide Content
+        origContent.classList.remove('hidden');
+        printContent.classList.add('hidden');
+    } else {
+        // Update Buttons
+        printBtn.classList.add('bg-white', 'shadow-sm', 'text-black');
+        origBtn.classList.remove('bg-white', 'shadow-sm', 'text-black');
+        // Show/Hide Content
+        printContent.classList.remove('hidden');
+        origContent.classList.add('hidden');
+    }
+}
+
+// Update the Add to Cart function to handle the price/size selection correctly
+function addToCartFromLightbox() {
+    const title = document.getElementById('lightbox-caption').innerText;
+    const img = document.getElementById('lightbox-img').src;
+    const sizeSelect = document.getElementById('printSizeSelect');
+    
+    // Get the selected price and text
+    const price = parseFloat(sizeSelect.value);
+    const size = sizeSelect.options[sizeSelect.selectedIndex].text.split(' — ')[0];
+
+    // Create the item object
+    const newItem = {
+        id: Date.now(),
+        title: title,
+        price: price,
+        size: size,
+        img: img
+    };
+
+    // Update Cart Array & Storage
+    cart.push(newItem);
+    localStorage.setItem('sophia_cart', JSON.stringify(cart));
+    
+    // UI Updates
+    updateCartBadge();
+    renderCart(); // Force refresh the list inside the drawer
+    
+    // Close Lightbox & Open Cart
+    document.getElementById('lightbox').classList.replace('flex', 'hidden');
+    document.body.style.overflow = 'auto';
+    toggleCart(); 
+}
+// Close Lightbox Logic
+document.getElementById('closeLightbox').addEventListener('click', () => {
+    document.getElementById('lightbox').classList.replace('flex', 'hidden');
+    document.body.style.overflow = 'auto';
+});
+
+// Initialize everything when the page loads
+window.addEventListener('DOMContentLoaded', () => {
+    initGallery();
+    updateCartBadge(); // Ensure the cart number shows up on load
+});
    // 5. Custom Cursor Logic
     const cursor = document.getElementById('cursor');
     
