@@ -73,7 +73,12 @@
     display: block;
     line-height: 1;
 }
-
+/* Makes the set card feel more premium on hover */
+.gallery-item.md\:col-span-2:hover {
+    background-color: rgba(249, 249, 249, 0.8);
+    border-color: rgba(0, 0, 0, 0.1);
+    transition: all 0.5s ease;
+}
     </style>
 </head>
 <body class="text-gray-900 relative">
@@ -415,29 +420,65 @@
     </section>
 
     <section id="abstracts" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
-        <div class="hidden lg:block w-16 sticky top-40 h-fit">
-            <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Abstracts</h2>
-        </div>
-        <div class="lg:hidden px-2">
-            <h2 class="text-3xl font-light italic text-slate-900">Abstracts</h2>
-            <div class="w-12 h-[1px] bg-black mt-2"></div>
-        </div>
-        <div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <div class="group cursor-zoom-in gallery-item">
-                <div class="overflow-hidden bg-gray-100"><img src="abstract1.jpg" class="w-full h-auto" alt="Abstract"></div>
-                <h3 class="mt-4 text-lg font-light italic">Abstract</h3> 
+    <div class="hidden lg:block w-16 sticky top-40 h-fit">
+        <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Abstracts</h2>
+    </div>
+
+    <div class="lg:hidden px-2">
+        <h2 class="text-3xl font-light italic text-slate-900">Abstracts</h2>
+        <div class="w-12 h-[1px] bg-black mt-2"></div>
+    </div>
+
+    <div class="flex-1 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        
+        <div class="md:col-span-2 lg:col-span-2 group cursor-zoom-in gallery-item bg-gray-50/20 p-4 md:p-8 border border-gray-100/50" 
+             data-prints='[{"size":"Individual 12x24", "price":110}, {"size":"Full Triptych Set (All 3)", "price":285}]'>
+            
+            <div class="grid grid-cols-3 gap-3 md:gap-6">
+                <div class="overflow-hidden bg-gray-100 shadow-sm">
+                    <img src="abstractseries1.jpg" class="w-full h-auto transition-transform duration-1000 group-hover:scale-105" alt="Abstract Series I">
+                </div>
+                <div class="overflow-hidden bg-gray-100 shadow-sm">
+                    <img src="abstractseries2.jpg" class="w-full h-auto transition-transform duration-1000 group-hover:scale-105" alt="Abstract Series II">
+                </div>
+                <div class="overflow-hidden bg-gray-100 shadow-sm">
+                    <img src="abstractseries3.jpg" class="w-full h-auto transition-transform duration-1000 group-hover:scale-105" alt="Abstract Series III">
+                </div>
             </div>
-            <div class="group cursor-zoom-in gallery-item asym-offset">
-                <div class="overflow-hidden bg-gray-100"><img src="abstract2.jpg" class="w-full h-auto" alt="Abstract"></div>
-                <h3 class="mt-4 text-lg font-light italic">Abstract</h3> 
-            </div>
-	<div class="group cursor-zoom-in gallery-item">
-                <div class="overflow-hidden bg-gray-100"><img src="largeabstract.jpg" class="w-full h-auto" alt="Abstract"></div>
-                <h3 class="mt-4 text-lg font-light italic">Abstract</h3> 
-                <p class="text-[10px] text-gray-400 uppercase mt-1">Mixed Media Acrylic • 12x24</p>
+
+            <div class="mt-8 text-center">
+                <span class="text-[9px] uppercase tracking-[0.4em] text-gray-400">Curated Series</span>
+                <h3 class="text-2xl md:text-3xl font-light italic text-slate-900 mt-1">The Abstract Collection</h3>
+                <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">Mixed Media Acrylic • 3-Piece Narrative Set</p>
             </div>
         </div>
-    </section>
+        
+        <div class="group cursor-zoom-in gallery-item">
+            <div class="overflow-hidden bg-gray-100 shadow-sm">
+                <img src="abstract1.jpg" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Abstract">
+            </div>
+            <h3 class="mt-4 text-lg font-light italic">Abstract Study I</h3> 
+            <p class="text-[10px] text-gray-400 uppercase mt-1">Acrylic on Canvas</p>
+        </div>
+
+        <div class="group cursor-zoom-in gallery-item asym-offset">
+            <div class="overflow-hidden bg-gray-100 shadow-sm">
+                <img src="abstract2.jpg" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Abstract">
+            </div>
+            <h3 class="mt-4 text-lg font-light italic">Abstract Study II</h3> 
+            <p class="text-[10px] text-gray-400 uppercase mt-1">Acrylic on Canvas</p>
+        </div>
+
+        <div class="group cursor-zoom-in gallery-item">
+            <div class="overflow-hidden bg-gray-100 shadow-sm">
+                <img src="largeabstract.jpg" class="w-full h-auto transition-transform duration-700 group-hover:scale-105" alt="Abstract">
+            </div>
+            <h3 class="mt-4 text-lg font-light italic">Large Narrative</h3> 
+            <p class="text-[10px] text-gray-400 uppercase mt-1">Mixed Media • 12x24</p>
+        </div>
+
+    </div>
+</section>
 
 </main>
 
