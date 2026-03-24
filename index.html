@@ -20,6 +20,14 @@
         .menu-open, .cart-open { transform: translateX(0) !important; }
         .menu-closed, .cart-closed { transform: translateX(100%) !important; }
 
+/* Add this inside your <style> tags */
+.gallery-item img {
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
 /* Custom Cursor */
 #cursor { 
     width: 20px; 
