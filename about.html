@@ -53,13 +53,13 @@
                 
                 <div class="text-gray-600 font-light leading-loose space-y-6">
                     <p>
-                        Sophia’s journey into the world of contemporary art began with a fascination for how light moves through watercolor. Her work often bridges the gap between structured acrylic layers and the unpredictable flow of water-based media.
+                        Born in Montreal and having called Kitchener home before settling in Ottawa, Sophia's passion for art took root in early childhood, eventually leading her to share that joy by teaching students of all ages—from children discovering their first colors to seniors refining their lifelong craft.
                     </p>
                     <p>
-                        "I believe every canvas tells a story of a single moment in time—whether it's the ripple in a lake or the way a shadow falls across a face. My goal is to invite the viewer to pause and find peace in those details."
+                        When she isn't raising her two sons, Cole and Dean, or out for a walk with her Cockapoo (Lily), Sophia is almost certainly at her easel. Her work spans from the fluid energy of mixed-media abstracts to precise automotive and athletic portraits. Beyond the canvas, she has also brought stories to life as the illustrator of two children’s novels.
                     </p>
                     <p>
-                        When she isn't in her studio, Sophia finds inspiration in nature, which often serves as the raw foundation for her abstract collections.
+                        For Sophia, every spare moment is an opportunity to paint, and she finds beauty in the process of turning a blank surface into a narrative of color and texture.
                     </p>
                 </div>
 
@@ -73,18 +73,24 @@
     </main>
 
     <footer class="py-24 px-8 bg-[#111] text-white">
-        <div class="max-w-6xl mx-auto text-center space-y-6">
-            <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
-            
-            <div class="flex justify-center">
-                <a href="https://instagram.com/bateman_art" target="_blank" class="text-gray-500 hover:text-white transition-colors">
-                    <i data-lucide="instagram" class="w-6 h-6"></i>
-                </a>
-            </div>
-
-            <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
+    <div class="max-w-6xl mx-auto text-center space-y-6">
+        <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
+        
+        <div class="flex justify-center">
+            <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-gray-400 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                    <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                </svg>
+            </a>
         </div>
-    </footer>
+
+        <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
+    </div>
+</footer>
+
+<button id="backToTop" class="fixed bottom-6 right-6 z-40 bg-white border border-gray-200 p-3 rounded-full shadow-lg hidden-btn hover:bg-black hover:text-white transition-all">
+    <i data-lucide="chevron-up" class="w-5 h-5"></i>
+</button>
 
     <script>
         lucide.createIcons();
@@ -101,6 +107,19 @@
             el.onmouseenter = () => document.body.classList.add('cursor-hover');
             el.onmouseleave = () => document.body.classList.remove('cursor-hover');
         });
+// Initialize icons
+lucide.createIcons();
+
+// Scroll & Back to Top Logic
+const backToTop = document.getElementById('backToTop');
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) {
+        backToTop.classList.replace('hidden-btn', 'visible-btn');
+    } else {
+        backToTop.classList.replace('visible-btn', 'hidden-btn');
+    }
+});
+backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     </script>
 </body>
 </html>
