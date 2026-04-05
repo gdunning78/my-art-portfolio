@@ -215,20 +215,36 @@
         </button>
     </div>
 
-    <nav class="flex-1 flex flex-col justify-center space-y-8">
-        <a href="index.html" class="group">
-            <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">01</span>
-            <span class="text-5xl font-light italic hover:pl-4 transition-all duration-500">Gallery</span>
-        </a>
-        <a href="about.html" class="group">
-            <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">02</span>
-            <span class="text-5xl font-light italic hover:pl-4 transition-all duration-500">About</span>
-        </a>
-        <a href="contact.html" class="group">
-            <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">03</span>
-            <span class="text-5xl font-light italic hover:pl-4 transition-all duration-500">Contact</span>
-        </a>
-    </nav>
+<nav class="flex-1 flex flex-col justify-center space-y-6">
+    <div class="group">
+        <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">01</span>
+        <a href="#Athletics" onclick="toggleMenu()" class="text-5xl font-light italic hover:pl-4 transition-all duration-500">Gallery</a>
+        
+        <div class="mt-4 ml-8 space-y-2 flex flex-col border-l border-gray-100 pl-4">
+            <a href="#Athletics" onclick="toggleMenu()" class="text-sm uppercase tracking-[0.2em] text-gray-500 hover:text-black transition-colors">
+                Athletics
+            </a>
+            <a href="#Automotive" onclick="toggleMenu()" class="text-sm uppercase tracking-[0.2em] text-gray-300 hover:text-black transition-colors">
+                Automotive
+            </a>
+            <a href="#Life" onclick="toggleMenu()" class="text-sm uppercase tracking-[0.2em] text-gray-300 hover:text-black transition-colors">
+                Life
+            </a>
+            <a href="#abstracts" onclick="toggleMenu()" class="text-sm uppercase tracking-[0.2em] text-gray-300 hover:text-black transition-colors">
+                Abstracts
+            </a>
+        </div>
+    </div>
+
+    <a href="about.html" class="group">
+        <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">02</span>
+        <span class="text-5xl font-light italic hover:pl-4 transition-all duration-500">About</span>
+    </a>
+    <a href="contact.html" class="group">
+        <span class="text-xs uppercase tracking-[0.4em] text-gray-400 block mb-2">03</span>
+        <span class="text-5xl font-light italic hover:pl-4 transition-all duration-500">Contact</span>
+    </a>
+</nav>
 
     <div class="border-t border-gray-100 pt-8 flex justify-between items-end">
         <div class="space-y-2">
