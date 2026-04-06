@@ -61,6 +61,16 @@
 #lightbox-caption, #lightbox-details {
     text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.8);
 }
+#closeLightbox {
+    color: #000 !important; /* Forces the icon to be solid black */
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)); /* Adds a white halo for visibility */
+    transition: transform 0.3s ease;
+}
+
+#closeLightbox:hover {
+    transform: scale(1.2); /* Adds a slight grow effect on hover */
+    color: #444 !important;
+}
 /* Hide scrollbar for horizontal categories */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
