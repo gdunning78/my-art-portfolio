@@ -202,7 +202,12 @@
     </nav>
 
 <div id="mobileMenu" class="fixed inset-0 z-[150] bg-white menu-closed md:hidden flex flex-col p-8">
-    <div class="flex justify-end">
+    <div class="flex justify-between items-center">
+        <button onclick="toggleCart(); toggleMenu();" class="relative group">
+            <i data-lucide="shopping-bag" class="w-6 h-6 text-gray-500"></i>
+            <span id="cartCountBadgeMobile" class="absolute -top-1 -right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+        </button>
+        
         <button id="closeMenu" class="text-gray-400 hover:text-black">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
