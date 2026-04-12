@@ -797,18 +797,43 @@ data-original-only="true">
         updateCartBadge();
     };
 function processOrder() {
-    // 1. Get the subtotal from your cart UI
+    // 1. Get the subtotal text (e.g., "$650.00")
     const subtotalText = document.getElementById('cartSubtotal').innerText.trim();
+    
+    // 2. Clean the string to get just the number (e.g., 650.00)
+    const numericValue = parseFloat(subtotalText.replace('$', '').replace(',', ''));
 
-    // 2. Redirect based on the specific price
-    // Replace the placeholder URLs with your actual buy.stripe.com links
-    if (subtotalText === "$250.00") {
-        window.location.href = "https://buy.stripe.com/9B69ATdTQb8Fc027JbaR200";
-    } else if (subtotalText === "$400.00") {
-        window.location.href = "https://buy.stripe.com/3cI28r3fc7Wt7JM1kNaR201";
+    // 3. Convert to cents for Stripe (e.g., 65000)
+    const amountInCents = Math.round(numericValue * 100);
+
+    if (amountInCents > 0) {
+        // REPLACE '6oEg273fc' with the code from your new "Master Link"
+        const stripeBaseLink = "https://buy.stripe.com/8x228rdTQekR2pse7zaR202";
+        
+        // This sends the user to Stripe with the total already filled in
+        window.location.href = `${stripeBaseLink}?amount=${amountInCents}`;
     } else {
-        // Fallback in case the price doesn't match or the cart is empty
-        alert("Please select a valid option to proceed to checkout.");
+        alert("Your bag is empty.");
+    }
+}
+function processOrder() {
+    const subtotalEl = document.getElementById('cartSubtotal');
+    if (!subtotalEl) return;
+
+    // 1. Clean the text: remove $, commas, and whitespace
+    const cleanValue = subtotalEl.innerText.replace(/[$,\s]/g, '');
+    
+    // 2. Convert to cents (Stripe uses cents: $500.00 = 50000)
+    const amountInCents = Math.round(parseFloat(cleanValue) * 100);
+
+    if (amountInCents > 0) {
+        // 3. This is your "Customers choose what to pay" link
+        const stripeBaseLink = "https://buy.stripe.com/8x28wP6roa4Bd46bZraR203";
+        
+        // 4. Force the pre-fill using the amount parameter
+        window.location.href = `${stripeBaseLink}?amount=${amountInCents}`;
+    } else {
+        alert("Your bag is empty.");
     }
 }
 </script>
