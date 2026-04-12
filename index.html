@@ -797,26 +797,6 @@ data-original-only="true">
         updateCartBadge();
     };
 function processOrder() {
-    // 1. Get the subtotal text (e.g., "$650.00")
-    const subtotalText = document.getElementById('cartSubtotal').innerText.trim();
-    
-    // 2. Clean the string to get just the number (e.g., 650.00)
-    const numericValue = parseFloat(subtotalText.replace('$', '').replace(',', ''));
-
-    // 3. Convert to cents for Stripe (e.g., 65000)
-    const amountInCents = Math.round(numericValue * 100);
-
-    if (amountInCents > 0) {
-        // REPLACE '6oEg273fc' with the code from your new "Master Link"
-        const stripeBaseLink = "https://buy.stripe.com/8x228rdTQekR2pse7zaR202";
-        
-        // This sends the user to Stripe with the total already filled in
-        window.location.href = `${stripeBaseLink}?amount=${amountInCents}`;
-    } else {
-        alert("Your bag is empty.");
-    }
-}
-function processOrder() {
     const subtotalEl = document.getElementById('cartSubtotal');
     if (!subtotalEl) return;
 
