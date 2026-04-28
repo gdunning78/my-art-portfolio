@@ -820,18 +820,17 @@ function closeOrderForm() {
 }
 
 // 3. Handle the form submission and redirect
-document.getElementById('orderForm').onsubmit = function() {
-    // Clear the cart locally immediately so it is empty if they return
+document.getElementById('orderForm').addEventListener('submit', function(e) {
+    // 1. Clear the cart data locally so it's empty when they come back
     cart = [];
     localStorage.setItem('sophia_cart', JSON.stringify(cart));
     updateCartBadge();
     renderCart();
-    
-    // We removed the setTimeout. By returning true or simply allowing 
-    // the function to finish, the browser will proceed with the 
-    // Web3Forms submission and the redirect to success.html
-    return true; 
-};
+
+    // 2. We do NOT use e.preventDefault() here. 
+    // Allowing the default behavior lets the browser handle the 
+    // redirect to the URL you put in your hidden input.
+});
 
 </script>
 <div id="orderOverlay" class="fixed inset-0 z-[200] bg-white/98 backdrop-blur-md hidden flex-col items-center justify-center p-6">
