@@ -186,13 +186,10 @@
 
 <div id="mobileMenu" class="fixed inset-0 z-[150] bg-white menu-closed md:hidden flex flex-col p-8">
     <div class="flex justify-between items-center">
-       <button onclick="toggleCart(); toggleMenu();" class="relative group">
+<button onclick="toggleCart(); toggleMenu();" class="relative group">
     <i data-lucide="shopping-bag" class="w-6 h-6 text-gray-500"></i>
     <span id="cartCountBadgeMobile" class="absolute -top-1 -right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
 </button>
-            <span id="cartCountBadgeMobile" class="absolute -top-1 -right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
-        </button>
-        
         <button id="closeMenu" class="text-gray-400 hover:text-black">
             <i data-lucide="x" class="w-8 h-8"></i>
         </button>
@@ -820,26 +817,64 @@ function closeOrderForm() {
 }
 
 // 3. Handle the form submission and redirect
-document.getElementById('orderForm').addEventListener('submit', function(e) {
-    // 1. Clear the cart data locally so it's empty when they come back
-    cart = [];
-    localStorage.setItem('sophia_cart', JSON.stringify(cart));
-    updateCartBadge();
-    renderCart();
+document.getElementById('orderForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); 
 
-    // 2. We do NOT use e.preventDefault() here. 
-    // Allowing the default behavior lets the browser handle the 
-    // redirect to the URL you put in your hidden input.
+    const form = e.target;
+    const formData = new FormData(form);
+
+    const cartSummary = cart.map(item => 
+        `- ${item.title} (${item.size}): $${item.price.toFixed(2)}`
+    ).join('\n');
+    formData.set('cart_items', cartSummary);
+
+    try {
+        const response = await fetch("https://api.web3forms.com/submit", {
+            method: "POST",
+            body: formData
+        });
+
+        if (response.ok) {
+            // FIX: Use the correct key name 'sophia_cart' to clear the storage
+            localStorage.removeItem('sophia_cart'); 
+            
+            // Clear the local variable and refresh the UI
+            cart = []; 
+            updateCartBadge();
+            renderCart();
+
+            // Close UI elements
+            const menu = document.getElementById('mobileMenu');
+            if (menu) {
+                menu.classList.remove('menu-open');
+                menu.classList.add('menu-closed');
+            }
+            
+            const overlay = document.getElementById('orderOverlay');
+            if (overlay) overlay.classList.replace('flex', 'hidden');
+            
+            document.body.style.overflow = 'auto';
+
+            // Redirect
+            window.location.href = "https://gdunning78.github.io/my-art-portfolio/success.html";
+        } else {
+            alert("Something went wrong. Please try again.");
+        }
+    } catch (error) {
+        console.error("Submission Error:", error);
+        alert("Form submission failed. Check your internet connection.");
+    }
 });
 
 </script>
 <div id="orderOverlay" class="fixed inset-0 z-[200] bg-white/98 backdrop-blur-md hidden flex-col items-center justify-center p-6">
-    <div class="max-w-md w-full space-y-8">
-        <div class="text-center">
-            <h2 class="text-3xl font-light italic">Request an Order Quote</h2>
-            <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-2">Shipping is calculated per order</p>
-        </div>
-        
+<div class="max-w-md w-full space-y-8 bg-white p-10 rounded-xl shadow-[0_20px_50px_rgba(0,0,0,0.2)] border border-gray-100">
+    <div class="text-center">
+        <h2 class="text-3xl font-light italic text-black">Request an Order Quote</h2>
+        <p class="text-[10px] uppercase tracking-widest text-gray-500 mt-2">Shipping is calculated per order</p>
+    </div>
+    
+       
         <form id="orderForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
     <input type="hidden" name="access_key" value="7e12b851-fa1b-4873-b2b3-8cd5137ab12c">
     <input type="hidden" name="redirect" value="https://gdunning78.github.io/my-art-portfolio/success.html">
