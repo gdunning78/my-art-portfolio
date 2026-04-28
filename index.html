@@ -48,16 +48,7 @@
         #checkoutOverlay { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); visibility: hidden; opacity: 0; }
         #checkoutOverlay.active { visibility: visible; opacity: 1; }
 
-/* Checkout Overlay Styles */
-#checkoutOverlay { 
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); 
-    visibility: hidden; 
-    opacity: 0; 
-}
-#checkoutOverlay.active { 
-    visibility: visible; 
-    opacity: 1; 
-}
+
 #lightbox-caption, #lightbox-details {
     text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 10px rgba(255, 255, 255, 0.8);
 }
@@ -124,20 +115,12 @@
                 <span>Subtotal</span>
                 <span id="cartSubtotal" class="text-black font-bold">$0.00</span>
             </div>
-<button id="proceedToCheckoutBtn" onclick="processOrder()" class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all">
-    Proceed to Checkout
+<button id="proceedToCheckoutBtn" onclick="openOrderForm()" class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all">
+    Request Order Quote
 </button>
         </div>
     </div>
-                  </div>
-                <button onclick="processOrder()" class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all">
-                    Complete Purchase
-                </button>
-            </div>
-            <div id="checkoutSuccess" class="hidden text-center space-y-6">
-                <div class="flex justify-center"><i data-lucide="check-circle" class="w-16 h-16 text-gray-200"></i></div>
-                <p class="text-lg font-light italic">Order placed successfully.</p>
-                <button onclick="closeCheckout()" class="border-b border-black pb-1 text-[10px] uppercase tracking-[0.2em]">Return to Gallery</button>
+
             </div>
         </div>
     </div>
@@ -203,8 +186,10 @@
 
 <div id="mobileMenu" class="fixed inset-0 z-[150] bg-white menu-closed md:hidden flex flex-col p-8">
     <div class="flex justify-between items-center">
-        <button onclick="toggleCart(); toggleMenu();" class="relative group">
-            <i data-lucide="shopping-bag" class="w-6 h-6 text-gray-500"></i>
+       <button onclick="toggleCart(); toggleMenu();" class="relative group">
+    <i data-lucide="shopping-bag" class="w-6 h-6 text-gray-500"></i>
+    <span id="cartCountBadgeMobile" class="absolute -top-1 -right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+</button>
             <span id="cartCountBadgeMobile" class="absolute -top-1 -right-2 bg-black text-white text-[8px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
         </button>
         
@@ -737,11 +722,22 @@ data-original-only="true">
         lucide.createIcons();
     }
 
-    function updateCartBadge() {
-        const badge = document.getElementById('cartCountBadge');
-        badge.innerText = cart.length;
-        badge.style.opacity = cart.length > 0 ? '1' : '0';
+function updateCartBadge() {
+    const badge = document.getElementById('cartCountBadge');
+    const badgeMobile = document.getElementById('cartCountBadgeMobile'); // Add this line
+    
+    const count = cart.length;
+    
+    // Update Desktop Badge
+    badge.innerText = count;
+    badge.style.opacity = count > 0 ? '1' : '0';
+    
+    // Update Mobile Badge
+    if (badgeMobile) {
+        badgeMobile.innerText = count;
+        badgeMobile.style.opacity = count > 0 ? '1' : '0';
     }
+}
 
     function removeItem(id) {
         cart = cart.filter(i => i.id !== id);
@@ -796,26 +792,76 @@ data-original-only="true">
         initGallery();
         updateCartBadge();
     };
-function processOrder() {
-    const subtotalEl = document.getElementById('cartSubtotal');
-    if (!subtotalEl) return;
-
-    // 1. Clean the text: remove $, commas, and whitespace
-    const cleanValue = subtotalEl.innerText.replace(/[$,\s]/g, '');
-    
-    // 2. Convert to cents (Stripe uses cents: $500.00 = 50000)
-    const amountInCents = Math.round(parseFloat(cleanValue) * 100);
-
-    if (amountInCents > 0) {
-        // 3. This is your "Customers choose what to pay" link
-        const stripeBaseLink = "https://buy.stripe.com/8x28wP6roa4Bd46bZraR203";
-        
-        // 4. Force the pre-fill using the amount parameter
-        window.location.href = `${stripeBaseLink}?amount=${amountInCents}`;
-    } else {
+// 1. Function to show the Order Request form and fill it with bag data
+function openOrderForm() {
+    if (cart.length === 0) {
         alert("Your bag is empty.");
+        return;
     }
+    
+    // Create a text summary of all items in the bag for your email
+    const cartSummary = cart.map(item => 
+        `- ${item.title} (${item.size}): $${item.price.toFixed(2)}`
+    ).join('\n');
+    
+    // Put that summary into the hidden field in your form
+    document.getElementById('hiddenCartData').value = cartSummary;
+    
+    // Show the overlay
+    const overlay = document.getElementById('orderOverlay');
+    overlay.classList.remove('hidden');
+    overlay.classList.add('flex');
 }
+
+// 2. Function to hide the form
+function closeOrderForm() {
+    const overlay = document.getElementById('orderOverlay');
+    overlay.classList.replace('flex', 'hidden');
+}
+
+// 3. Handle the form submission and redirect
+document.getElementById('orderForm').onsubmit = function() {
+    // Clear the cart locally immediately so it is empty if they return
+    cart = [];
+    localStorage.setItem('sophia_cart', JSON.stringify(cart));
+    updateCartBadge();
+    renderCart();
+    
+    // We removed the setTimeout. By returning true or simply allowing 
+    // the function to finish, the browser will proceed with the 
+    // Web3Forms submission and the redirect to success.html
+    return true; 
+};
+
 </script>
+<div id="orderOverlay" class="fixed inset-0 z-[200] bg-white/98 backdrop-blur-md hidden flex-col items-center justify-center p-6">
+    <div class="max-w-md w-full space-y-8">
+        <div class="text-center">
+            <h2 class="text-3xl font-light italic">Request an Order Quote</h2>
+            <p class="text-[10px] uppercase tracking-widest text-gray-400 mt-2">Shipping is calculated per order</p>
+        </div>
+        
+        <form id="orderForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-4">
+    <input type="hidden" name="access_key" value="7e12b851-fa1b-4873-b2b3-8cd5137ab12c">
+    <input type="hidden" name="redirect" value="https://gdunning78.github.io/my-art-portfolio/success.html">
+            <input type="hidden" name="subject" value="New Art Order Request">
+            <input type="hidden" name="from_name" value="Art Portfolio Store">
+            
+            <input type="text" name="name" placeholder="FULL NAME" required class="w-full border-b border-gray-200 py-3 text-[10px] uppercase tracking-widest outline-none focus:border-black transition-colors bg-transparent">
+            <input type="email" name="email" placeholder="EMAIL ADDRESS" required class="w-full border-b border-gray-200 py-3 text-[10px] uppercase tracking-widest outline-none focus:border-black transition-colors bg-transparent">
+            <input type="text" name="location" placeholder="SHIPPING CITY & COUNTRY" required class="w-full border-b border-gray-200 py-3 text-[10px] uppercase tracking-widest outline-none focus:border-black transition-colors bg-transparent">
+            <textarea name="message" placeholder="ADDITIONAL NOTES (OPTIONAL)" class="w-full border-b border-gray-200 py-3 text-[10px] uppercase tracking-widest outline-none focus:border-black transition-colors h-24 resize-none bg-transparent"></textarea>
+            
+            <input type="hidden" name="cart_items" id="hiddenCartData">
+
+            <button type="submit" class="w-full bg-black text-white py-5 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all mt-4">
+                Submit Quote Request
+            </button>
+            <button type="button" onclick="closeOrderForm()" class="w-full text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-4">
+                Cancel
+            </button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
