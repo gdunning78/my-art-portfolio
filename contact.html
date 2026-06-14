@@ -69,21 +69,19 @@
         </section>
     </main>
 
-<footer class="py-24 px-8 bg-[#111] text-white">
-    <div class="max-w-6xl mx-auto text-center space-y-6">
-        <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
-        
-        <div class="flex justify-center">
-<a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-gray-400 transition-colors">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
-        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
-    </svg>
-</a>
-        </div>
+    <footer class="py-24 px-8 bg-[#111] text-white mt-20">
+        <div class="max-w-6xl mx-auto text-center space-y-6">
+            <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
+            
+            <div class="flex justify-center">
+                <a href="https://instagram.com/bateman_art" target="_blank" class="text-gray-500 hover:text-white transition-colors">
+                    <i data-lucide="instagram" class="w-6 h-6"></i>
+                </a>
+            </div>
 
-        <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
-    </div>
-</footer>
+            <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
+        </div>
+    </footer>
 
     <script>
         lucide.createIcons();
@@ -101,5 +99,49 @@
             el.onmouseleave = () => document.body.classList.remove('cursor-hover');
         });
     </script>
+const form = document.getElementById('contact-form');
+const formContainer = document.getElementById('form-container');
+const thankYouMessage = document.getElementById('thank-you-message');
+const submitBtn = document.getElementById('submit-btn');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevents the browser from navigating away
+    
+    // Visual feedback that the form is processing
+    submitBtn.innerText = "Sending...";
+    submitBtn.disabled = true;
+
+    const formData = new FormData(form);
+    const object = Object.fromEntries(formData);
+    const json = JSON.stringify(object);
+
+    fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: json
+    })
+    .then(async (response) => {
+        let res = await response.json();
+        if (response.status == 200) {
+            // Hide the form entirely, show the custom thank you block
+            formContainer.classList.add('hidden');
+            thankYouMessage.classList.remove('hidden');
+        } else {
+            console.log(response);
+            alert(res.message);
+            submitBtn.innerText = "Send Message";
+            submitBtn.disabled = false;
+        }
+    })
+    .catch(error => {
+        console.log(error);
+        alert("Something went wrong. Please try again.");
+        submitBtn.innerText = "Send Message";
+        submitBtn.disabled = false;
+    });
+});
 </body>
 </html>
