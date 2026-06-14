@@ -44,9 +44,9 @@
                 <p class="text-gray-400 italic">For inquiries or commissions</p>
             </div>
 
-            <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+            <!-- Removed action and method attributes to fully control via JavaScript -->
+            <form id="contactForm" class="space-y-6">
                 <input type="hidden" name="access_key" value="7e12b851-fa1b-4873-b2b3-8cd5137ab12c">
-                <input type="hidden" name="redirect" value="success.html">
                 
                 <div>
                     <label class="block text-xs uppercase tracking-widest text-gray-500 mb-2">Name</label>
@@ -100,6 +100,39 @@
         document.querySelectorAll('a, button, input, textarea').forEach(el => {
             el.onmouseenter = () => document.body.classList.add('cursor-hover');
             el.onmouseleave = () => document.body.classList.remove('cursor-hover');
+        });
+
+        // Background Submission and Guaranteed Redirection Script
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); // Stop standard browser submission page navigation
+            
+            const formData = new FormData(form);
+            const object = Object.fromEntries(formData);
+            const json = JSON.stringify(object);
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json
+            })
+            .then(async (response) => {
+                if (response.status == 200) {
+                    // Force deployment landing directly to your custom thank you screen
+                    window.location.href = "success.html";
+                } else {
+                    console.log(response);
+                    alert("Something went wrong. Please try again.");
+                }
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Submission failed. Check your internet connection.");
+            });
         });
     </script>
 </body>
