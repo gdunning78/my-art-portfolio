@@ -12,8 +12,13 @@
         body { font-family: 'Inter', sans-serif; background-color: #fdfdfd; scroll-behavior: smooth; overflow-x: hidden; cursor: none; }
         
         .dropdown:hover .dropdown-menu { display: block; }
-        #backToTop.hidden-btn { opacity: 0; pointer-events: none; }
-        #backToTop.visible-btn { opacity: 1; pointer-events: auto; }
+        
+        /* Back to Top Smooth Transitions */
+        #backToTop {
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        #backToTop.hidden-btn { opacity: 0; pointer-events: none; transform: translateY(20px); }
+        #backToTop.visible-btn { opacity: 1; pointer-events: auto; transform: translateY(0); }
 
         /* Sidebar/Drawer Transitions */
         #mobileMenu { transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -92,7 +97,10 @@
 
     <div id="cursor" class="hidden md:block"></div>
 
-    <!-- Lightbox Modal -->
+    <button id="backToTop" class="hidden-btn fixed bottom-8 right-8 z-50 bg-black text-white p-4 rounded-full shadow-2xl hover:bg-gray-800 active:scale-95 transition-all flex items-center justify-center">
+        <i data-lucide="arrow-up" class="w-5 h-5"></i>
+    </button>
+
     <div id="lightbox" class="fixed inset-0 z-[100] bg-white/98 backdrop-blur-md hidden flex-col items-center justify-center p-4 md:p-12">
         <button id="closeLightbox" class="absolute top-8 right-8 text-gray-400 hover:text-black transition-colors z-[110]">
             <i data-lucide="x" class="w-8 h-8"></i>
@@ -115,7 +123,6 @@
         </div>
     </div>
 
-    <!-- Desktop Menu Navigation -->
     <nav id="top" class="p-6 md:p-8 flex justify-between items-center max-w-6xl mx-auto relative z-40">
         <h1 class="text-2xl md:text-3xl tracking-widest uppercase cursor-pointer" onclick="window.location.href='index.html'">Sophia Bateman</h1>
         <div class="hidden md:flex space-x-8 text-sm uppercase tracking-tighter text-gray-500 items-center">
@@ -136,7 +143,6 @@
         <button id="menuBtn" class="md:hidden text-gray-500 hover:text-black"><i data-lucide="menu" class="w-6 h-6"></i></button>
     </nav>
 
-    <!-- Mobile Navigation Menu -->
     <div id="mobileMenu" class="fixed inset-0 z-[150] bg-white menu-closed md:hidden flex flex-col p-8">
         <div class="flex justify-end items-center">
             <button id="closeMenu" class="text-gray-400 hover:text-black">
@@ -175,7 +181,6 @@
         </div>
     </div>
 
-    <!-- Header View -->
     <header class="min-h-screen flex items-center bg-[#fcfcfc] border-b border-gray-50 overflow-hidden relative">
         <div class="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[22vw] font-light text-gray-100 select-none pointer-events-none z-0 uppercase tracking-tighter" style="font-family: 'Bodoni Moda', serif;">
             Bateman
@@ -214,7 +219,6 @@
         </div>
     </header>
 
-    <!-- Mobile Sticky Menu Bar -->
     <div class="lg:hidden category-bar overflow-x-auto no-scrollbar whitespace-nowrap px-6 py-4 flex space-x-8 items-center border-b border-gray-100">
         <a href="#Athletics" class="text-[10px] uppercase tracking-[0.3em] font-medium text-black">Athletics</a>
         <a href="#Automotive" class="text-[10px] uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors">Automotive</a>
@@ -222,7 +226,6 @@
         <a href="#abstracts" class="text-[10px] uppercase tracking-[0.3em] text-gray-400 hover:text-black transition-colors">Abstracts</a>
     </div>
 
-    <!-- Latest Drops Carousel Grid -->
     <section class="py-24 border-b border-gray-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-between items-end mb-12">
@@ -258,10 +261,8 @@
         </div>
     </section>
 
-    <!-- Main Content Area Grid Layouts -->
     <main class="max-w-[1400px] mx-auto p-6 lg:p-24">
 
-        <!-- Athletics Section -->
         <section id="Athletics" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
             <div class="hidden lg:block w-16 sticky top-40 h-fit">
                 <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Athletics</h2>
@@ -313,7 +314,6 @@
             </div>
         </section>
 
-        <!-- Automotive Section -->
         <section id="Automotive" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
             <div class="hidden lg:block w-16 sticky top-40 h-fit">
                 <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Automotive</h2>
@@ -336,7 +336,6 @@
             </div>
         </section>
 
-        <!-- Life Section -->
         <section id="Life" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
             <div class="hidden lg:block w-16 sticky top-40 h-fit">
                 <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Life</h2>
@@ -408,7 +407,6 @@
             </div>
         </section>
 
-        <!-- Abstracts Section -->
         <section id="abstracts" class="mb-48 scroll-mt-24 flex flex-col lg:flex-row gap-16">
             <div class="hidden lg:block w-16 sticky top-40 h-fit">
                 <h2 class="vertical-text text-7xl font-light tracking-tighter uppercase text-slate-800">Abstracts</h2>
@@ -465,47 +463,19 @@
     <footer class="py-24 px-8 bg-[#111] text-white">
         <div class="max-w-6xl mx-auto text-center space-y-6">
             <h2 class="text-4xl uppercase tracking-tighter mb-4">Sophia Bateman</h2>
+            
             <div class="flex justify-center">
                 <a href="https://instagram.com/bateman_art" target="_blank" class="hover:text-gray-400 transition-colors">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6">
+                        <rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/>
+                    </svg>
                 </a>
             </div>
-        </div>
-<section id="contact-section" class="py-24 max-w-xl mx-auto px-6 border-t border-gray-100">
-        <div class="text-center mb-12">
-            <span class="text-[10px] uppercase tracking-[0.4em] text-gray-400">Get In Touch</span>
-            <h2 class="text-4xl font-light italic mt-2">Contact</h2>
-        </div>
 
-        <form id="myForm" class="space-y-6">
-            <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
-
-            <div>
-                <input type="text" name="name" placeholder="YOUR NAME" required 
-                       class="w-full border-b border-gray-300 py-3 text-xs tracking-widest uppercase focus:outline-none focus:border-black bg-transparent transition-colors">
-            </div>
-            <div>
-                <input type="email" name="email" placeholder="YOUR EMAIL" required 
-                       class="w-full border-b border-gray-300 py-3 text-xs tracking-widest uppercase focus:outline-none focus:border-black bg-transparent transition-colors">
-            </div>
-            <div>
-                <textarea name="message" rows="4" placeholder="YOUR MESSAGE" required 
-                          class="w-full border-b border-gray-300 py-3 text-xs tracking-widest uppercase focus:outline-none focus:border-black bg-transparent transition-colors resize-none"></textarea>
-            </div>
-            
-            <button type="submit" class="w-full bg-black text-white py-4 text-[10px] uppercase tracking-[0.3em] hover:bg-gray-800 transition-all">
-                Send Message
-            </button>
-        </form>
-
-        <div id="successMessage" style="display: none;" class="text-center py-12 border border-gray-100 bg-gray-50/50 p-8 dynamic-fade">
-            <h3 class="text-2xl font-light italic text-slate-900">Thank you!</h3>
-            <p class="text-xs uppercase tracking-widest text-gray-400 mt-2">Your message has been sent. We'll get back to you shortly.</p>
+            <p class="text-[9px] text-gray-600 tracking-[0.5em] uppercase">&copy; 2026 Sophia Bateman.</p>
         </div>
-    </section>
     </footer>
 
-    <!-- Interactive Navigation Scripts -->
     <script>
         // Init Lucide Layout Icons
         lucide.createIcons();
@@ -532,33 +502,60 @@
             }
         }
 
-        menuBtn.addEventListener('click', toggleMenu);
-        closeMenu.addEventListener('click', toggleMenu);
+        if (menuBtn) menuBtn.addEventListener('click', toggleMenu);
+        if (closeMenu) closeMenu.addEventListener('click', toggleMenu);
 
-        // Core Lightbox Logic
+        // --- RESTORED LIGHTBOX CORE CLICK LOGIC (LEAVE ME ALONE!) ---
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
         const lightboxCaption = document.getElementById('lightbox-caption');
         const lightboxDetails = document.getElementById('lightbox-details');
         const closeLightbox = document.getElementById('closeLightbox');
 
+        // Dynamically extract data properties from your layout items when clicked
         document.querySelectorAll('.gallery-item').forEach(item => {
             item.addEventListener('click', () => {
                 const img = item.querySelector('img');
-                const title = item.querySelector('h3').innerText;
-                const details = item.querySelector('p').innerText;
-
-                lightboxImg.src = img.src;
-                lightboxCaption.innerText = title;
-                lightboxDetails.innerText = details;
-                lightbox.classList.remove('hidden');
-                lightbox.classList.add('flex');
+                const title = item.querySelector('h3');
+                const sub = item.querySelector('p');
+                
+                if (img && lightbox) {
+                    lightboxImg.src = img.src;
+                    lightboxCaption.textContent = title ? title.textContent : '';
+                    lightboxDetails.textContent = sub ? sub.textContent : '';
+                    lightbox.classList.remove('hidden');
+                    lightbox.classList.add('flex');
+                }
             });
         });
 
-        closeLightbox.addEventListener('click', () => {
-            lightbox.classList.remove('flex');
-            lightbox.classList.add('hidden');
+        if (closeLightbox) {
+            closeLightbox.addEventListener('click', () => {
+                lightbox.classList.add('hidden');
+                lightbox.classList.remove('flex');
+            });
+        }
+        // -------------------------------------------------------------
+
+        // --- BACK TO THE TOP BUTTON SCROLL LOGIC ---
+        const backToTopBtn = document.getElementById('backToTop');
+
+        window.addEventListener('scroll', () => {
+            // Button becomes visible after scrolling down 400px
+            if (window.scrollY > 400) {
+                backToTopBtn.classList.remove('hidden-btn');
+                backToTopBtn.classList.add('visible-btn');
+            } else {
+                backToTopBtn.classList.remove('visible-btn');
+                backToTopBtn.classList.add('hidden-btn');
+            }
+        });
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
         });
     </script>
 </body>
